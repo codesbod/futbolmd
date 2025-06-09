@@ -91,7 +91,7 @@ const removePlayerGame = (objPlayer) => {
             </select>
           </div>
           <div class="col-2 text-center">
-            <button class="btn btn-primary" type="button" @click="addPlayerGame">
+            <button class="btn btn-outline-primary" type="button" @click="addPlayerGame">
               <i class="bi bi-plus-lg"></i>
             </button>
           </div>
@@ -115,7 +115,7 @@ const removePlayerGame = (objPlayer) => {
             <td>{{ player.lastName }}</td>
             <td class="text-center">{{ player.average }}</td>
             <td class="text-center">
-              <button class="btn btn-danger btn-sm" type="button" @click="removePlayerGame(player)">
+              <button class="btn btn-outline-danger btn-sm" type="button" @click="removePlayerGame(player)">
                 <i class="bi bi-trash"></i>
               </button>
             </td>
@@ -123,8 +123,47 @@ const removePlayerGame = (objPlayer) => {
           </tbody>
         </table>
       </div>
+      <div class="col-md-6" v-show="gameStore.game.teamOne?.length > 0">
+        <label class="form-label fw-bold">Players team one</label>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item text-orange p-0 ps-3" v-for="(player, index) in gameStore.game.teamOne" :key="player.id">
+            {{index + 1}}. {{player.firstName}} {{player.lastName}}
+          </li>
+        </ul>
+      </div>
+      <div class="col-md-6" v-show="gameStore.game.teamTwo?.length > 0">
+        <label class="form-label fw-bold">Players team two</label>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item text-chartreuse p-0 ps-3" v-for="(player,index) in gameStore.game.teamTwo" :key="player.id">
+            {{index + 1}}. {{player.firstName}} {{player.lastName}}
+          </li>
+        </ul>
+      </div>
+      <div class="col-md-6" v-show="gameStore.game.teamOne?.length > 0">
+        <label for="goalsTeamOne" class="form-label">Goal Team One</label>
+        <input type="number" class="form-control" id="goalsTeamOne" v-model.trim="gameStore.game.goalsTeamOne"
+               placeholder="Ingrese numero de goles">
+        <div class="invalid-feedback">
+          Goal required
+        </div>
+      </div>
+      <div class="col-md-6" v-show="gameStore.game.teamTwo?.length > 0">
+        <label for="goalsTeamTwo" class="form-label">Goals Team Two</label>
+        <input type="number" class="form-control" id="goalsTeamTwo" v-model.trim="gameStore.game.goalsTeamTwo"
+               placeholder="Ingrese numero de goles">
+        <div class="invalid-feedback">
+          Goal required
+        </div>
+      </div>
       <div class="col-12 border-top text-center pt-2">
-        <button class="btn btn-primary" type="submit" :disabled="gameStore.loadingGame">
+
+        <button class="btn btn-primary me-1" type="button" :disabled="gameStore.loadingGame" @click="gameStore.divideTeams()">
+          <span class="spinner-border spinner-border-sm" v-show="gameStore.loadingGame"></span>
+          <span class="bi bi-shuffle" v-show="!gameStore.loadingGame"></span>
+          Distribute Teams
+        </button>
+
+        <button class="btn btn-primary me-1" type="submit" :disabled="gameStore.loadingGame">
           <span class="spinner-border spinner-border-sm" v-show="gameStore.loadingGame"></span>
           <span class="bi bi-floppy" v-show="!gameStore.loadingGame"></span>
           Save
@@ -141,5 +180,13 @@ const removePlayerGame = (objPlayer) => {
     display: flex;
     align-items: center;
   }
+}
+
+.text-chartreuse {
+  color: chartreuse;
+}
+
+.text-orange {
+  color: orange;
 }
 </style>

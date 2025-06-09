@@ -30,4 +30,35 @@ export default defineConfig({
       },
     },
   },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (id.includes('node_modules/firebase') || id.includes('node_modules/@firebase')) {
+            return 'vendorFirebase'; // Agrupa las dependencias de terceros en un fragmento llamado 'vendor'
+          }
+          if (id.includes('node_modules/dayjs')) {
+            return 'vendorDayjs'; // Agrupa las dependencias de terceros en un fragmento llamado 'vendor'
+          }
+          if (id.includes('node_modules/idb')) {
+            return 'vendorIdb'; // Agrupa las dependencias de terceros en un fragmento llamado 'vendor'
+          }
+          if (id.includes('node_modules/uuid')) {
+            return 'vendorUuid'; // Agrupa las dependencias de terceros en un fragmento llamado 'vendor'
+          }
+          if (id.includes('node_modules/bootstrap') || id.includes('node_modules/bootstrap-icons')) {
+            return 'vendorBootstrap'; // Agrupa las dependencias de terceros en un fragmento llamado 'vendor'
+          }
+          if (id.includes('node_modules/pinia')) {
+            return 'vendorPinia'; // Agrupa las dependencias de terceros en un fragmento llamado 'vendor'
+          }
+          if (id.includes('node_modules')) {
+            console.log(id);
+            return 'vendor'; // Agrupa las dependencias de terceros en un fragmento llamado 'vendor'
+          }
+        },
+      },
+    },
+    chunkSizeWarningLimit: 500,
+  },
 })

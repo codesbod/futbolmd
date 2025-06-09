@@ -5,6 +5,7 @@ import {ref} from "vue";
 import {useRouter} from "vue-router";
 import {usePlayerStore} from "@/stores/player.js";
 import {useGameStore} from "@/stores/game.js";
+import {useSurveyStore} from "@/stores/survey.js";
 
 export const useUserStore = defineStore('userStore', () => {
 
@@ -26,6 +27,8 @@ export const useUserStore = defineStore('userStore', () => {
             const errorCode = error.code;
             const errorMessage = error.message;
             console.log(`${errorCode} ${errorMessage}`);
+
+            alert(errorCode);
         } finally {
             loadingAction.value = false;
         }
@@ -42,6 +45,8 @@ export const useUserStore = defineStore('userStore', () => {
             const errorCode = error.code;
             const errorMessage = error.message;
             console.log(`${errorCode} ${errorMessage}`);
+
+            alert(errorCode);
         } finally {
             loadingAction.value = false;
         }
@@ -50,10 +55,7 @@ export const useUserStore = defineStore('userStore', () => {
     const logoutUser = async () => {
         loadingAction.value = true;
         try {
-            const playerStore = usePlayerStore();
-            playerStore.resetStore();
-            const gameStore = useGameStore();
-            gameStore.resetStore();
+            resetAllStore();
 
             await signOut(auth);
             userData.value = null;
@@ -88,6 +90,15 @@ export const useUserStore = defineStore('userStore', () => {
         isAdmin.value = userData.value.uid === "8yxnSvcLPthVc3b3XRCOSaXZr0h1";
     }
 
-    return {loadingAction, loadingUser, userData, isAdmin, createUser, loginUser, logoutUser, currentUser, }
+    const resetAllStore = () => {
+        const playerStore = usePlayerStore();
+        playerStore.resetStore();
+        const gameStore = useGameStore();
+        gameStore.resetStore();
+        const surveyStore = useSurveyStore();
+        surveyStore.resetStore();
+    }
+
+    return {loadingAction, loadingUser, userData, isAdmin, createUser, loginUser, logoutUser, currentUser, validationIsAdmin}
 
 })

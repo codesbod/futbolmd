@@ -14,7 +14,6 @@ const newPlayer = () => {
   }
   userStore.createUser(email.value, password.value);
 }
-
 </script>
 
 <template>

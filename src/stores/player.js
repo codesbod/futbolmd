@@ -115,10 +115,11 @@ export const usePlayerStore = defineStore('playerStore', () => {
     const addPlayer = async () => {
         loadingPlayer.value = true;
         try {
-            player.value.id = auth.currentUser.uid;
-            player.value.user = auth.currentUser.uid;
+            const uid = auth.currentUser.uid;
+            player.value.id = uid;
+            player.value.user = uid;
 
-            await setDoc(doc(db, "player", auth.currentUser.uid), player.value);
+            await setDoc(doc(db, "player", uid), player.value);
             await router.push('/');
         } catch (error) {
             const errorCode = error.code;

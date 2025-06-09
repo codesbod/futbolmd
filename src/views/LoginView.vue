@@ -38,7 +38,7 @@ const loginPlayer = () => {
         </div>
       </div>
       <div class="col-12 border-top text-center pt-2">
-        <button class="btn btn-primary" type="submit" :disabled="userStore.loadingAction">
+        <button class="btn btn-primary" type="submit"  :disabled="userStore.loadingAction">
           <span class="spinner-border spinner-border-sm" v-show="userStore.loadingAction"></span>
           <span class="bi bi-box-arrow-in-right" v-show="!userStore.loadingAction"></span>
           Login

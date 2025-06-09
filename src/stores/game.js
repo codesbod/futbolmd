@@ -1,8 +1,9 @@
 import {defineStore} from 'pinia'
 import {ref} from "vue";
-import {addDoc, collection, doc, getDocs, setDoc} from "firebase/firestore/lite";
-import {db} from "@/components/firebaseConfig";
+import {addDoc, collection, query, where, doc, getDocs, setDoc} from "firebase/firestore/lite";
+import {auth, db} from "@/components/firebaseConfig";
 import {useRouter} from "vue-router";
+import {useUserStore} from "@/stores/user.js";
 
 export const useGameStore = defineStore('gameStore', () => {
 
@@ -19,6 +20,8 @@ export const useGameStore = defineStore('gameStore', () => {
         players: [],
         teamOne: [],
         teamTwo: [],
+        goalsTeamOne: 0,
+        goalsTeamTwo: 0,
     });
     const game = ref({})
 
@@ -29,19 +32,28 @@ export const useGameStore = defineStore('gameStore', () => {
     ])
 
     const getGames = async () => {
+        const userStore = useUserStore();
+
         loadingGame.value = true;
         try {
             if(games.value.length !== 0){
                 return;
             }
-            const querySnapshot = await getDocs(collection(db, "game"));
+
+            let q = query(collection(db, "game"));
+            const querySnapshot = await getDocs(q);
             querySnapshot.forEach((obj) => {
                 games.value.push({
                     id: obj.id,
                     ...obj.data()
                 })
             });
-            game.value = games.value[0];
+
+            if (!userStore.isAdmin) {
+                games.value = games.value.filter(game =>
+                    game?.players.some(player => player.id === auth.currentUser.uid)
+                );
+            }
         } catch (error) {
             const errorCode = error.code;
             const errorMessage = error.message;
@@ -54,7 +66,6 @@ export const useGameStore = defineStore('gameStore', () => {
     const addGame = async () => {
         loadingGame.value = true;
         try{
-            divideTeams();
             if(game.value.id !== null){
                 await setDoc(doc(db, "game", game.value.id), game.value);
             }else{
@@ -111,6 +122,6 @@ export const useGameStore = defineStore('gameStore', () => {
         game.value = newGame.value;
     };
 
-    return {loadingGame, types, games, newGame, game, getGames, addGame, actionNewGame, actionUpdateGame, actionViewGame, resetStore}
+    return {loadingGame, types, games, newGame, game, getGames, addGame, divideTeams, actionNewGame, actionUpdateGame, actionViewGame, resetStore}
 
 })

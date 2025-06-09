@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import {useGameStore} from '@/stores/game';
-import {useUserStore} from '@/stores/user';
+import { useSurveyStore } from '@/stores/survey';
 import dayjs from "dayjs";
 
-const userStore = useUserStore();
+const surveyStore = useSurveyStore();
 const gameStore = useGameStore();
 gameStore.getGames();
 
@@ -13,15 +13,9 @@ const formatDate = (date) => {
 </script>
 
 <template>
-  <div class="games">
+  <div class="survey">
     <div class="row g-3">
-      <h1 class="col-md-12">Games</h1>
-      <div class="col-md-12 text-end" v-if="userStore.userData && userStore.isAdmin">
-        <button class="btn btn-primary me-2" type="button" @click="gameStore.actionNewGame()">
-          <i class="bi bi-plus-lg"></i>
-          New Game
-        </button>
-      </div>
+      <h1 class="col-md-12">Surveys</h1>
       <div class="col-md-12">
         <table class="table table-striped table-sm">
           <thead>
@@ -36,13 +30,10 @@ const formatDate = (date) => {
           <tr v-for="game in gameStore.games" :key="game.id">
             <td>{{ game.place }}</td>
             <td class="text-center" style="min-width: 150px">{{ formatDate(game.dateTime) }}</td>
-            <td class="text-center">{{ game.type.code }}</td>
+            <td class="text-center">{{ game.type?.code }}</td>
             <td class="text-center">
-              <button class="btn btn-outline-primary btn-sm me-1" type="button" @click="gameStore.actionViewGame(game)">
-                <i class="bi bi-zoom-in"></i>
-              </button>
-              <button class="btn btn-outline-primary btn-sm me-1" type="button" @click="gameStore.actionUpdateGame(game)" v-if="userStore.userData && userStore.isAdmin">
-                <i class="bi bi-pencil-square"></i>
+              <button class="btn btn-outline-primary btn-sm" type="button" @click="surveyStore.actionSendSurveys(game)">
+                <i class="bi bi-send"></i>
               </button>
             </td>
           </tr>
@@ -55,7 +46,7 @@ const formatDate = (date) => {
 
 <style scoped>
 @media (min-width: 1024px) {
-  .games {
+  .survey {
     min-height: 100vh;
     display: flex;
     align-items: center;

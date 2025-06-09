@@ -7,12 +7,15 @@ import LoginView from "@/views/LoginView.vue";
 import GamesView from "@/views/GamesView.vue";
 import GameView from "@/views/GameView.vue";
 import DetailGameView from "@/views/DetailGameView.vue";
+import SurveysView from "@/views/SurveysView.vue";
+import SendSurveyView from "@/views/SendSurveyView.vue";
 
 const requiresAuth = async (to, from, next) => {
     const userStore = useUserStore();
     userStore.loadingUser = true;
     const user = await userStore.currentUser();
     if (user) {
+        userStore.validationIsAdmin();
         next();
     } else {
         next('/login');
@@ -26,8 +29,10 @@ const routes = [
     {path: '/games', component: GamesView, beforeEnter: requiresAuth},
     {path: '/game', component: GameView, beforeEnter: requiresAuth},
     {path: '/detailGame', component: DetailGameView, beforeEnter: requiresAuth},
+    {path: '/surveys', component: SurveysView, beforeEnter: requiresAuth},
+    {path: '/sendSurvey', component: SendSurveyView, beforeEnter: requiresAuth},
     {path: '/newPlayer', component: NewPlayerView},
-    {path: '/login', component: LoginView}
+    {path: '/login', component: LoginView},
 ]
 
 const router = createRouter({

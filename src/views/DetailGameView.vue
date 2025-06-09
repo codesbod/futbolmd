@@ -106,7 +106,6 @@ const formatDate = (date) => {
   }
 }
 
-
 .cancha {
   height: 460px;
   width: 300px;

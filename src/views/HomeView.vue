@@ -1,12 +1,8 @@
 <script setup>
 import {usePlayerStore} from "@/stores/player.js";
-import {useUserStore} from "@/stores/user.js";
 
 const playerStore = usePlayerStore();
 playerStore.getPlayer();
-
-const userStore = useUserStore();
-//console.log("userData", userStore.userData);
 </script>
 
 <template>
@@ -18,12 +14,13 @@ const userStore = useUserStore();
       </button>
     </div>
     <div v-show="!playerStore.loadingPlayer && playerStore.player.id"
-         :class="playerStore.average >= 85 ? 'cartaZafiro' : playerStore.average >= 70 ? 'cartaDiamante' : 'cartaOro'"
+         :class="playerStore.average >= 85 ? 'cartaDiamante' : playerStore.average >= 70 ? 'cartaOro' : 'cartaPlata'"
          class="m-auto" style="height: 500px; width: 300px">
       <div class="row p-5">
         <div class="col-12" style="height: 10px"></div>
         <div class="col-2 fw-bold fs-1">{{ playerStore.average }}</div>
-        <div class="col-10"></div>
+        <div class="col-10 text-success fw-bold"><i class="bi bi-chevron-double-up"></i>5</div>
+        <!--<div class="col-10 text-danger fw-bold"><i class="bi bi-chevron-double-down"></i>5</div>-->
         <span v-for="(position, index) in playerStore.positions" :key="position.code">
             <div class="col-2" :class="{'fw-bold': index === 0 }">{{ position.code }}</div><div class="col-10"></div>
           </span>
@@ -79,6 +76,14 @@ const userStore = useUserStore();
   height: 500px;
   width: 300px;
   background-image: url('@/assets/cartaDiamante.png');
+  background-size: contain; /* Ajusta la imagen sin recortarla */
+  background-repeat: no-repeat;
+}
+
+.cartaPlata {
+  height: 500px;
+  width: 300px;
+  background-image: url('@/assets/cartaPlata.png');
   background-size: contain; /* Ajusta la imagen sin recortarla */
   background-repeat: no-repeat;
 }
