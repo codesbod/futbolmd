@@ -16,7 +16,7 @@ const send = () => {
 
 <template>
   <div class="sendSurvey">
-    <form class="row g-3 needs-validation" novalidate @submit.prevent="send">
+    <form class="row g-3 w-100 needs-validation" novalidate @submit.prevent="send">
       <h1 class="col-md-12">Send Survey</h1>
       <div class="col-md-12">
         <table class="table table-striped table-sm">

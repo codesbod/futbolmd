@@ -10,7 +10,7 @@ const formatDate = (date) => {
 </script>
 <template>
   <div class="detailGame">
-    <div class="row g-3">
+    <div class="row g-3 w-100">
       <h1 class="col-md-12">Detail Game</h1>
       <div class="col-md-12">
         <table class="table table-striped table-sm">

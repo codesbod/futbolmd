@@ -1,8 +1,21 @@
 <script setup>
-import {usePlayerStore} from "@/stores/player.js";
+import {usePlayerStore} from "@/stores/player";
+import {useStatisticStore} from "@/stores/statistic";
+import {ref} from "vue";
 
+const statisticStore = useStatisticStore();
 const playerStore = usePlayerStore();
-playerStore.getPlayer();
+
+const genuineAverage = ref(0);
+const averagePlus = ref(0);
+
+const init = async () => {
+  await playerStore.getPlayer();
+  genuineAverage.value = statisticStore.genuineAverage(playerStore.player);
+  averagePlus.value = statisticStore.averagePlus(playerStore.player);
+}
+init();
+
 </script>
 
 <template>
@@ -13,22 +26,66 @@ playerStore.getPlayer();
         loading...
       </button>
     </div>
-    <div v-show="!playerStore.loadingPlayer && playerStore.player.id"
-         :class="playerStore.average >= 85 ? 'cartaDiamante' : playerStore.average >= 70 ? 'cartaOro' : 'cartaPlata'"
-         class="m-auto" style="height: 500px; width: 300px">
-      <div class="row p-5">
-        <div class="col-12" style="height: 10px"></div>
-        <div class="col-2 fw-bold fs-1">{{ playerStore.average }}</div>
-        <div class="col-10 text-success fw-bold"><i class="bi bi-chevron-double-up"></i>5</div>
-        <!--<div class="col-10 text-danger fw-bold"><i class="bi bi-chevron-double-down"></i>5</div>-->
-        <span v-for="(position, index) in playerStore.positions" :key="position.code">
+    <div class="row g-3 w-100">
+      <div class="col-md-12">
+        <table class="table table-sm m-auto">
+          <thead>
+          <tr>
+            <th colspan="3" class="text-center fw-bold">Games</th>
+            <th colspan="2" class="text-center fw-bold">Goals</th>
+          </tr>
+          <tr>
+            <th class="text-center fst-italic">Wins</th>
+            <th class="text-center fst-italic">Draws</th>
+            <th class="text-center fst-italic">Losses</th>
+            <th class="text-center fst-italic">For</th>
+            <th class="text-center fst-italic">Against</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td class="text-center text-success">{{ playerStore.player?.statistic?.detail?.pg }}</td>
+            <td class="text-center text-warning">{{ playerStore.player?.statistic?.detail?.pe }}</td>
+            <td class="text-center text-danger">{{ playerStore.player?.statistic?.detail?.pp }}</td>
+            <td class="text-center text-success">{{ playerStore.player?.statistic?.detail?.gf }}</td>
+            <td class="text-center text-danger">{{ playerStore.player?.statistic?.detail?.gc }}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="col-md-12">
+        <div v-show="!playerStore.loadingPlayer && playerStore.player.id"
+             :class="genuineAverage  >= 85 ? 'cartaDiamante' : genuineAverage >= 70 ? 'cartaOro' : 'cartaPlata'"
+             class="m-auto">
+          <div class="row p-5">
+            <div class="col-12" style="height: 10px"></div>
+            <div class="col-2 fw-bold fs-1">{{ genuineAverage }}</div>
+            <div class="col-10 text-success fw-bold" v-if="averagePlus > 0"><i class="bi bi-chevron-double-up"></i>{{averagePlus}}</div>
+            <div class="col-10 text-danger fw-bold" v-if="averagePlus < 0"><i class="bi bi-chevron-double-down"></i>{{averagePlus}}</div>
+            <span v-for="(position, index) in playerStore.positions" :key="position.code">
             <div class="col-2" :class="{'fw-bold': index === 0 }">{{ position.code }}</div><div class="col-10"></div>
           </span>
-        <div class="col-12 heightCardUno"></div>
-        <div class="col-12 text-center fw-bold text-uppercase">{{ playerStore.player.lastName }}</div>
-        <div class="col-12" style="height: 10px"></div>
-        <div v-for="attribute in playerStore.player?.attributes" :key="attribute.code" class="col-4 text-uppercase">
-          {{ attribute.rating * 10 }} {{ attribute.name.substring(0, 2) }}
+            <div class="col-12 heightCardUno"></div>
+            <div class="col-12 text-center fw-bold text-uppercase">{{ playerStore.player.lastName }}</div>
+            <div class="col-12" style="height: 10px"></div>
+            <div v-for="attribute in playerStore.player?.attributes" :key="attribute.code" class="col-4 text-uppercase">
+              <span v-if="!attribute?.show">{{ attribute.rating * 10 }} {{ attribute.name.substring(0, 2) }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="row m-auto">
+          <div class="col-md-12 text-center border-bottom fw-bold pb-2">Statistics</div>
+          <div class="col-md-2 col-4 fst-italic">Attribute:</div>
+          <div class="col-md-1 col-2">{{ playerStore.player?.statistic?.average }}</div>
+          <div class="col-md-2 col-4 fst-italic">Surveys:</div>
+          <!--<div class="col-md-1 col-2">{{ playerStore.player?.attributes[9].rating }}</div>-->
+          <div class="col-md-1 col-2">0</div>
+          <div class="col-md-2 col-4 fst-italic">Game:</div>
+          <div class="col-md-1 col-2">{{ playerStore.player?.statistic?.games }}</div>
+          <div class="col-md-2 col-4 fst-italic">Gols:</div>
+          <div class="col-md-1 col-2">{{ playerStore.player?.statistic?.goals }}</div>
         </div>
       </div>
     </div>
@@ -56,7 +113,7 @@ playerStore.getPlayer();
 }
 
 .cartaOro {
-  height: 500px;
+  height: 420px;
   width: 300px;
   background-image: url('@/assets/cartaOro.png');
   background-size: contain; /* Ajusta la imagen sin recortarla */
@@ -64,7 +121,7 @@ playerStore.getPlayer();
 }
 
 .cartaZafiro {
-  height: 500px;
+  height: 420px;
   width: 300px;
   color: #f2f2f2;
   background-image: url('@/assets/cartaZafiro.png');
@@ -73,7 +130,7 @@ playerStore.getPlayer();
 }
 
 .cartaDiamante {
-  height: 500px;
+  height: 420px;
   width: 300px;
   background-image: url('@/assets/cartaDiamante.png');
   background-size: contain; /* Ajusta la imagen sin recortarla */
@@ -81,7 +138,7 @@ playerStore.getPlayer();
 }
 
 .cartaPlata {
-  height: 500px;
+  height: 420px;
   width: 300px;
   background-image: url('@/assets/cartaPlata.png');
   background-size: contain; /* Ajusta la imagen sin recortarla */

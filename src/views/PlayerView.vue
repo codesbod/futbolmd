@@ -19,7 +19,7 @@ const save = () => {
 
 <template>
   <div class="player">
-    <form class="row g-3 needs-validation" novalidate @submit.prevent="save">
+    <form class="row g-3 w-100 needs-validation" novalidate @submit.prevent="save">
       <h1 class="col-md-12">Player</h1>
       <div class="col-md-6">
         <label for="firstName" class="form-label">First name</label>
@@ -61,10 +61,9 @@ const save = () => {
           </tr>
           </thead>
           <tbody>
-          <tr v-for="attribute in playerStore.player.attributes">
+          <tr v-for="attribute in playerStore.player.attributes" :key="attribute.code">
             <td>{{ attribute.name }}</td>
-            <td><input type="range" class="form-range" min="1" max="9"
-                       v-model="attribute.rating"></td>
+            <td><input type="range" class="form-range" min="1" max="9" v-model="attribute.rating" :disabled="attribute?.show"></td>
             <td class="text-center">{{ attribute.rating }}</td>
           </tr>
           </tbody>

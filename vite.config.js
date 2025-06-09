@@ -53,7 +53,6 @@ export default defineConfig({
             return 'vendorPinia'; // Agrupa las dependencias de terceros en un fragmento llamado 'vendor'
           }
           if (id.includes('node_modules')) {
-            console.log(id);
             return 'vendor'; // Agrupa las dependencias de terceros en un fragmento llamado 'vendor'
           }
         },

@@ -19,7 +19,7 @@ const loginPlayer = () => {
 
 <template>
   <div class="login">
-    <form class="row g-3 needs-validation" novalidate @submit.prevent="loginPlayer">
+    <form class="row g-3 w-100 needs-validation" novalidate @submit.prevent="loginPlayer">
       <h1 class="col-md-12">Login</h1>
       <div class="col-md-6">
         <label for="email" class="form-label">Email</label>

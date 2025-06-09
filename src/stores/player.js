@@ -61,16 +61,29 @@ export const usePlayerStore = defineStore('playerStore', () => {
             {code: 6, name: "Cabeceo", rating: 3},
             {code: 7, name: "Posicionamiento", rating: 3},
             {code: 8, name: "Fuerza", rating: 3},
+            {code: 9, name: "Calificacion", rating: 5, show: false},
         ],
+        statistic: {
+            detail: {
+                pg: 0,
+                pe: 0,
+                pp: 0,
+                gf: 0,
+                gc: 0,
+            },
+            games: 0,
+            goals: 0,
+            average: 0,
+        },
     });
     const player = ref({});
-    const average = ref(0);
+
     const positions = ref([]);
 
     const getPlayers = async () => {
         loadingPlayer.value = true;
         try {
-            if(players.value.length !== 0){
+            if (players.value.length !== 0) {
                 return;
             }
             const querySnapshot = await getDocs(collection(db, "player"));
@@ -140,7 +153,7 @@ export const usePlayerStore = defineStore('playerStore', () => {
         objPlayer.attributes.forEach(attribute => {
             sumAttribute.value += Number(attribute.rating);
         });
-        average.value = Math.round((sumAttribute.value / objPlayer.attributes.length) * 10);
+        objPlayer.statistic.average = Math.round((sumAttribute.value / objPlayer.attributes.length) * 10);
     }
 
     const getPositions = (objPlayer) => {
@@ -153,11 +166,20 @@ export const usePlayerStore = defineStore('playerStore', () => {
     const resetStore = () => {
         player.value = newPlayer.value;
         getPlayers.value = [];
-        average.value = 0;
         positions.value = [];
-
     };
 
-    return {loadingPlayer, players, player, average, positions, getPlayers, getPlayer, addPlayer,  getAverage, getPositions, resetStore}
+    return {
+        loadingPlayer,
+        players,
+        player,
+        positions,
+        getPlayers,
+        getPlayer,
+        addPlayer,
+        getAverage,
+        getPositions,
+        resetStore
+    }
 
 })

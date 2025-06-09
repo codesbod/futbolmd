@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import {useGameStore} from '@/stores/game';
 import {usePlayerStore} from '@/stores/player';
+import {useStatisticStore} from '@/stores/statistic';
 import {ref} from "vue";
 import {v4 as uuidv4} from "uuid";
 
+const statisticStore = useStatisticStore();
 const gameStore = useGameStore();
 const playerStore = usePlayerStore();
 playerStore.getPlayers();
@@ -29,7 +31,7 @@ const addPlayerGame = () => {
   if (selectPlayer.value.firstName !== invitado.value.firstName) {
     gameStore.game.players = gameStore.game.players.filter(player => player.id !== selectPlayer.value.id);
     playerStore.getAverage(selectPlayer.value);
-    selectPlayer.value.average = playerStore.average;
+    selectPlayer.value.average = selectPlayer?.statistic?.average;
   }
 
   if (selectPlayer.value.firstName === invitado.value.firstName) {
@@ -51,7 +53,7 @@ const removePlayerGame = (objPlayer) => {
 </script>
 <template>
   <div class="game">
-    <form class="row g-3 needs-validation" novalidate @submit.prevent="save">
+    <form class="row g-3 w-100 needs-validation" novalidate @submit.prevent="save">
       <h1 class="col-md-12">Game</h1>
       <div class="col-md-12">
         <label for="place" class="form-label">Place</label>
@@ -157,7 +159,12 @@ const removePlayerGame = (objPlayer) => {
       </div>
       <div class="col-12 border-top text-center pt-2">
 
-        <button class="btn btn-primary me-1" type="button" :disabled="gameStore.loadingGame" @click="gameStore.divideTeams()">
+        <button class="btn btn-outline-secondary me-1" type="button" @click="statisticStore.calculateStatistic(gameStore.game)">
+          <i class="bi bi-dice-5"></i>
+          Calculate Statistic
+        </button>
+
+        <button class="btn btn-outline-secondary me-1" type="button" :disabled="gameStore.loadingGame" @click="gameStore.divideTeams()">
           <span class="spinner-border spinner-border-sm" v-show="gameStore.loadingGame"></span>
           <span class="bi bi-shuffle" v-show="!gameStore.loadingGame"></span>
           Distribute Teams

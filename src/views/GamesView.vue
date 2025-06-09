@@ -14,7 +14,7 @@ const formatDate = (date) => {
 
 <template>
   <div class="games">
-    <div class="row g-3">
+    <div class="row g-3 w-100">
       <h1 class="col-md-12">Games</h1>
       <div class="col-md-12 text-end" v-if="userStore.userData && userStore.isAdmin">
         <button class="btn btn-primary me-2" type="button" @click="gameStore.actionNewGame()">
