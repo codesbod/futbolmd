@@ -31,24 +31,24 @@ init();
         <table class="table table-sm m-auto">
           <thead>
           <tr>
-            <th colspan="3" class="text-center fw-bold">Games</th>
-            <th colspan="2" class="text-center fw-bold">Goals</th>
-          </tr>
-          <tr>
-            <th class="text-center fst-italic">Wins</th>
-            <th class="text-center fst-italic">Draws</th>
-            <th class="text-center fst-italic">Losses</th>
-            <th class="text-center fst-italic">For</th>
-            <th class="text-center fst-italic">Against</th>
+            <th class="text-center fst-italic">MP</th>
+            <th class="text-center fst-italic">W</th>
+            <th class="text-center fst-italic">D</th>
+            <th class="text-center fst-italic">L</th>
+            <th class="text-center fst-italic">GF</th>
+            <th class="text-center fst-italic">GA</th>
+            <th class="text-center fst-italic">GD</th>
           </tr>
           </thead>
           <tbody>
           <tr>
+            <td class="text-center">{{ playerStore.player?.statistic?.detail?.pg + playerStore.player?.statistic?.detail?.pe + playerStore.player?.statistic?.detail?.pp }}</td>
             <td class="text-center text-success">{{ playerStore.player?.statistic?.detail?.pg }}</td>
             <td class="text-center text-warning">{{ playerStore.player?.statistic?.detail?.pe }}</td>
             <td class="text-center text-danger">{{ playerStore.player?.statistic?.detail?.pp }}</td>
             <td class="text-center text-success">{{ playerStore.player?.statistic?.detail?.gf }}</td>
             <td class="text-center text-danger">{{ playerStore.player?.statistic?.detail?.gc }}</td>
+            <td class="text-center">{{ playerStore.player?.statistic?.detail?.gf - playerStore.player?.statistic?.detail?.gc}}</td>
           </tr>
           </tbody>
         </table>
