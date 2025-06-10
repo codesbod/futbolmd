@@ -48,7 +48,7 @@ export const useGameStore = defineStore('gameStore', () => {
                 collection(db, "game"),
                 where("dateTime", ">=", unaSemanaAntes),
                 where("dateTime", "<=", hoy),
-                orderBy("fecha", "desc")
+                orderBy("dateTime", "desc")
             )
         );
     }
