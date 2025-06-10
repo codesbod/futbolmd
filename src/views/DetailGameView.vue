@@ -19,13 +19,15 @@ const formatDate = (date) => {
             <th class="text-center">Place</th>
             <th class="text-center">Date and Time</th>
             <th class="text-center">Type</th>
+            <th class="text-center">Result</th>
           </tr>
           </thead>
           <tbody>
           <tr>
             <td>{{ gameStore.game.place }}</td>
-            <td class="text-center" style="min-width: 150px">{{ formatDate(gameStore.game.dateTime) }}</td>
+            <td class="text-center" style="min-width: 150px">{{ formatDate(gameStore.game.dateTime?.toDate()) }}</td>
             <td class="text-center">{{ gameStore.game.type.code }}</td>
+            <td class="text-center">{{ gameStore.game.goalsTeamOne }} - {{ gameStore.game.goalsTeamTwo }}</td>
           </tr>
           </tbody>
         </table>

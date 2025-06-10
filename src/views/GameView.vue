@@ -31,7 +31,7 @@ const addPlayerGame = () => {
   if (selectPlayer.value.firstName !== invitado.value.firstName) {
     gameStore.game.players = gameStore.game.players.filter(player => player.id !== selectPlayer.value.id);
     playerStore.getAverage(selectPlayer.value);
-    selectPlayer.value.average = selectPlayer?.statistic?.average;
+    selectPlayer.value.average = statisticStore.genuineAverage(selectPlayer.value);
   }
 
   if (selectPlayer.value.firstName === invitado.value.firstName) {

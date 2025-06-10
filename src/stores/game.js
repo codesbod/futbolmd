@@ -1,6 +1,6 @@
 import {defineStore} from 'pinia'
 import {ref} from "vue";
-import {addDoc, collection, query, where, doc, getDocs, setDoc} from "firebase/firestore/lite";
+import {addDoc, collection, query, where, doc, getDocs, setDoc, orderBy} from "firebase/firestore/lite";
 import {auth, db} from "@/components/firebaseConfig";
 import {useRouter} from "vue-router";
 import {useUserStore} from "@/stores/user.js";
@@ -31,17 +31,21 @@ export const useGameStore = defineStore('gameStore', () => {
         {code: "F11", name: "Futbol Once", min: 22, max: 24},
     ])
 
-    const getGames = async () => {
-        const userStore = useUserStore();
+    const getHistoryGames = async () => {
+        games.value = [];
+        await getGames(query(collection(db, "game"), orderBy("dateTime", "desc")));
+    }
 
+    const getGamesSurveys = async () => {
+        games.value = [];
+        await getGames(query(collection(db, "game"), where("dateTime", "<", new Date()), orderBy("dateTime", "desc")));
+    }
+
+    const getGames = async (query) => {
+        const userStore = useUserStore();
         loadingGame.value = true;
         try {
-            if(games.value.length !== 0){
-                return;
-            }
-
-            let q = query(collection(db, "game"));
-            const querySnapshot = await getDocs(q);
+            const querySnapshot = await getDocs(query);
             querySnapshot.forEach((obj) => {
                 games.value.push({
                     id: obj.id,
@@ -66,6 +70,7 @@ export const useGameStore = defineStore('gameStore', () => {
     const addGame = async () => {
         loadingGame.value = true;
         try{
+            game.value.dateTime = new Date(game.value.dateTime);
             if(game.value.id !== null){
                 await setDoc(doc(db, "game", game.value.id), game.value);
             }else{
@@ -91,13 +96,15 @@ export const useGameStore = defineStore('gameStore', () => {
         game.value.teamOne = [];
         game.value.teamTwo = [];
 
+        console.log("game.value.players", game.value.players);
+
         game.value.players.forEach(player => {
             if (sumTeam1 <= sumTeam2) {
                 game.value.teamOne.push(player);
-                sumTeam1 += player.average;
+                sumTeam1 += Number(player.average);
             } else {
                 game.value.teamTwo.push(player);
-                sumTeam2 += player.average;
+                sumTeam2 += Number(player.average);
             }
         });
     }
@@ -122,6 +129,5 @@ export const useGameStore = defineStore('gameStore', () => {
         game.value = newGame.value;
     };
 
-    return {loadingGame, types, games, newGame, game, getGames, addGame, divideTeams, actionNewGame, actionUpdateGame, actionViewGame, resetStore}
-
+    return {loadingGame, types, games, newGame, game, getGames, addGame, divideTeams, actionNewGame, actionUpdateGame, actionViewGame, resetStore,  getHistoryGames, getGamesSurveys }
 })

@@ -5,7 +5,7 @@ import dayjs from "dayjs";
 
 const surveyStore = useSurveyStore();
 const gameStore = useGameStore();
-gameStore.getGames();
+gameStore.getGamesSurveys();
 
 const formatDate = (date) => {
   return dayjs(date).format("DD/MM/YYYY HH:mm");
@@ -29,7 +29,7 @@ const formatDate = (date) => {
           <tbody>
           <tr v-for="game in gameStore.games" :key="game.id">
             <td>{{ game.place }}</td>
-            <td class="text-center" style="min-width: 150px">{{ formatDate(game.dateTime) }}</td>
+            <td class="text-center" style="min-width: 150px">{{ formatDate(game.dateTime.toDate()) }}</td>
             <td class="text-center">{{ game.type?.code }}</td>
             <td class="text-center">
               <button class="btn btn-outline-primary btn-sm" type="button" @click="surveyStore.actionSendSurveys(game)">

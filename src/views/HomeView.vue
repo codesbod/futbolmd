@@ -84,7 +84,7 @@ init();
           <div class="col-md-1 col-2">0</div>
           <div class="col-md-2 col-4 fst-italic">Game:</div>
           <div class="col-md-1 col-2">{{ playerStore.player?.statistic?.games }}</div>
-          <div class="col-md-2 col-4 fst-italic">Gols:</div>
+          <div class="col-md-2 col-4 fst-italic">Goals:</div>
           <div class="col-md-1 col-2">{{ playerStore.player?.statistic?.goals }}</div>
         </div>
       </div>

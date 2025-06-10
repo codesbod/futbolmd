@@ -149,6 +149,7 @@ export const usePlayerStore = defineStore('playerStore', () => {
     }
 
     const getAverage = (objPlayer) => {
+        console.log(objPlayer.id, objPlayer);
         const sumAttribute = ref(0);
         objPlayer.attributes.forEach(attribute => {
             sumAttribute.value += Number(attribute.rating);
