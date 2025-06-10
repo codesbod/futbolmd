@@ -19,7 +19,6 @@ const formatDate = (date) => {
             <th class="text-center">Place</th>
             <th class="text-center">Date and Time</th>
             <th class="text-center">Type</th>
-            <th class="text-center">Result</th>
           </tr>
           </thead>
           <tbody>
@@ -27,10 +26,12 @@ const formatDate = (date) => {
             <td>{{ gameStore.game.place }}</td>
             <td class="text-center" style="min-width: 150px">{{ formatDate(gameStore.game.dateTime?.toDate()) }}</td>
             <td class="text-center">{{ gameStore.game.type.code }}</td>
-            <td class="text-center">{{ gameStore.game.goalsTeamOne }} - {{ gameStore.game.goalsTeamTwo }}</td>
           </tr>
           </tbody>
         </table>
+      </div>
+      <div class="col-md-12 text-center fs-1">
+        <span class="text-orange">{{ gameStore.game.goalsTeamOne }}</span> - <span class="text-chartreuse">{{ gameStore.game.goalsTeamTwo }}</span>
       </div>
       <div class="col-md-12" v-if="gameStore.game.type?.code === 'F5'">
         <div class="cancha p-2 text-white text-lowercase m-auto">

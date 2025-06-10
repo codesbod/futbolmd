@@ -29,7 +29,6 @@ const formatDate = (date) => {
             <th class="text-center">Place</th>
             <th class="text-center">Date and Time</th>
             <th class="text-center">Type</th>
-            <th class="text-center">Result</th>
             <th/>
           </tr>
           </thead>
@@ -38,7 +37,6 @@ const formatDate = (date) => {
             <td>{{ game.place }}</td>
             <td class="text-center" style="min-width: 150px">{{ formatDate(game.dateTime.toDate()) }}</td>
             <td class="text-center">{{ game.type.code }}</td>
-            <td class="text-center">{{ game.goalsTeamOne }} - {{ game.goalsTeamTwo }}</td>
             <td class="text-center">
               <button class="btn btn-outline-primary btn-sm me-1" type="button" @click="gameStore.actionViewGame(game)">
                 <i class="bi bi-zoom-in"></i>
