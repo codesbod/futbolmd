@@ -38,7 +38,19 @@ export const useGameStore = defineStore('gameStore', () => {
 
     const getGamesSurveys = async () => {
         games.value = [];
-        await getGames(query(collection(db, "game"), where("dateTime", "<", new Date()), orderBy("dateTime", "desc")));
+
+        const hoy = new Date(); // Fecha actual
+        const unaSemanaAntes = new Date();
+        unaSemanaAntes.setDate(hoy.getDate() - 7);
+
+        await getGames(
+            query(
+                collection(db, "game"),
+                where("dateTime", ">=", unaSemanaAntes),
+                where("dateTime", "<=", hoy),
+                orderBy("fecha", "desc")
+            )
+        );
     }
 
     const getGames = async (query) => {
