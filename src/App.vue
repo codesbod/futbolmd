@@ -11,7 +11,7 @@ const userStore = useUserStore();
     <img alt="strategy" class="logo" src="@/assets/strategy.svg" width="125" height="125"/>
     <div class="wrapper">
       <div class="row text-center">
-        <h1 class="col-md-12">Pro F&uacute;tbol Metrics</h1>
+        <h1 class="col-md-12">Amateur F&uacute;tbol Metrics</h1>
         <div class="col-md-12">
           <div class="btn-group" role="group" v-show="!userStore.loadingUser">
             <RouterLink v-show="userStore.userData" class="btn btn-primary btn-sm" to="/">Home</RouterLink>

@@ -23,7 +23,7 @@ const invitado = ref({
   id: null,
   firstName: 'Invitado',
   lastName: 'Invitado',
-  average: 50
+  average: 99
 });
 
 const selectPlayer = ref({});
@@ -53,7 +53,7 @@ const removePlayerGame = (objPlayer) => {
 </script>
 <template>
   <div class="game">
-    <form class="row g-3 w-100 needs-validation" novalidate @submit.prevent="save">
+    <form class="row g-3 w-100 needs-validation was-validated" novalidate @submit.prevent="save">
       <h1 class="col-md-12">Game</h1>
       <div class="col-md-12">
         <label for="place" class="form-label">Place</label>
