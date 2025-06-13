@@ -17,9 +17,15 @@ export const useUserStore = defineStore('userStore', () => {
     const userData = ref();
     const isAdmin = ref(false);
 
-    const createUser = async (email, password) => {
+    const trueCodeTeam = "u3P96dFpFn7w";
+
+    const createUser = async (email, password, codeTeam) => {
         loadingAction.value = true;
         try {
+            if(codeTeam !== trueCodeTeam){
+                alert("The team code does not exist");
+                return;
+            }
             const {user} = await createUserWithEmailAndPassword(auth, email, password);
             userData.value = user;
             await router.push('/');

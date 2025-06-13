@@ -6,13 +6,14 @@ const userStore = useUserStore();
 
 const email = ref();
 const password = ref();
+const codeTeam = ref();
 
 const newPlayer = () => {
-  if (!email.value || password.value.length < 6) {
+  if (!email.value || password.value.length < 6 || !codeTeam.value) {
     alert("Campos requeridos");
     return;
   }
-  userStore.createUser(email.value, password.value);
+  userStore.createUser(email.value, password.value, codeTeam.value);
 }
 </script>
 
@@ -34,6 +35,14 @@ const newPlayer = () => {
                placeholder="Ingrese un contraseña" required>
         <div class="invalid-feedback">
           Password required
+        </div>
+      </div>
+      <div class="col-md-12">
+        <label for="codeTeam" class="form-label">Code Team</label>
+        <input type="password" class="form-control" id="codeTeam" v-model.trim="codeTeam"
+               placeholder="Ingrese el código del equipo" required>
+        <div class="invalid-feedback">
+          Code team required
         </div>
       </div>
       <div class="col-12 border-top text-center pt-2">
