@@ -10,7 +10,7 @@ export const useStatisticStore = defineStore('statisticStore', () => {
 
     const loadingStatistic = ref(false);
 
-    <!--
+    /*
     const players = ref([]);
     const getPlayers = async () => {
         loadingStatistic.value = true;
@@ -64,7 +64,7 @@ export const useStatisticStore = defineStore('statisticStore', () => {
             console.log(`${error.code} ${error.message}`);
         }
     }
-    -->
+    */
 
     const findPlayerById = async (id) => {
         try {
