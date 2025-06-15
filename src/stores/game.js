@@ -108,8 +108,6 @@ export const useGameStore = defineStore('gameStore', () => {
         game.value.teamOne = [];
         game.value.teamTwo = [];
 
-        console.log("game.value.players", game.value.players);
-
         game.value.players.forEach(player => {
             if (sumTeam1 <= sumTeam2) {
                 game.value.teamOne.push(player);

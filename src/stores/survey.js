@@ -72,8 +72,6 @@ export const useSurveyStore = defineStore('surveyStore', () => {
                 where("player", "==", auth.currentUser.uid),
                 where("game.id", "==", objGame.id)
             );
-            console.log("uid",auth.currentUser.uid);
-            console.log("id",objGame.id);
 
             const querySnapshot = await getDocs(q);
             querySnapshot.forEach((obj) => {

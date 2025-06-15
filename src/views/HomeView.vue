@@ -69,7 +69,7 @@ init();
             <div class="col-12 text-center fw-bold text-uppercase">{{ playerStore.player.lastName }}</div>
             <div class="col-12" style="height: 10px"></div>
             <div v-for="attribute in playerStore.player?.attributes" :key="attribute.code" class="col-4 text-uppercase">
-              <span v-if="!attribute?.show">{{ attribute.rating * 10 }} {{ attribute.name.substring(0, 2) }}</span>
+              <span v-if="attribute?.show">{{ attribute.rating * 10 }} {{ attribute.name.substring(0, 2) }}</span>
             </div>
           </div>
         </div>

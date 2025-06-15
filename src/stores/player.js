@@ -52,16 +52,16 @@ export const usePlayerStore = defineStore('playerStore', () => {
             }
         ],
         attributes: [
-            {code: 0, name: "Resistencia", rating: 3},
-            {code: 1, name: "Velocidad", rating: 3},
-            {code: 2, name: "Pase", rating: 3},
-            {code: 3, name: "Control", rating: 3},
-            {code: 4, name: "Regate", rating: 3},
-            {code: 5, name: "Definición", rating: 3},
-            {code: 6, name: "Cabeceo", rating: 3},
-            {code: 7, name: "Posicionamiento", rating: 3},
-            {code: 8, name: "Fuerza", rating: 3},
-            {code: 9, name: "Calificacion", rating: 5, show: false},
+            {code: 0, name: "Resistencia", rating: 3, show: false},
+            {code: 1, name: "Velocidad", rating: 3, show: false},
+            {code: 2, name: "Pase", rating: 3, show: false},
+            {code: 3, name: "Control", rating: 3, show: false},
+            {code: 4, name: "Regate", rating: 3, show: false},
+            {code: 5, name: "Definición", rating: 3, show: false},
+            {code: 6, name: "Cabeceo", rating: 3, show: false},
+            {code: 7, name: "Posicionamiento", rating: 3, show: false},
+            {code: 8, name: "Fuerza", rating: 3, show: false},
+            {code: 9, name: "Calificacion", rating: 5, show: true},
         ],
         statistic: {
             detail: {
@@ -149,7 +149,6 @@ export const usePlayerStore = defineStore('playerStore', () => {
     }
 
     const getAverage = (objPlayer) => {
-        console.log(objPlayer.id, objPlayer);
         const sumAttribute = ref(0);
         objPlayer.attributes.forEach(attribute => {
             sumAttribute.value += Number(attribute.rating);

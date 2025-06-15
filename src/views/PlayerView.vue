@@ -67,7 +67,7 @@ const save = () => {
                 {{ attribute.name }}
               </label>
             </td>
-            <td><input type="range" class="form-range" min="1" max="9" v-model="attribute.rating" :disabled="attribute?.show"></td>
+            <td><input type="range" class="form-range" min="1" max="9" v-model="attribute.rating" :disabled="!attribute?.show"></td>
             <td class="text-center">{{ attribute.rating }}</td>
           </tr>
           </tbody>
