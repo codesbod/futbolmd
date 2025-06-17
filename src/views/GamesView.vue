@@ -15,21 +15,20 @@ const formatDate = (date) => {
 <template>
   <div class="games">
     <div class="row g-3 w-100">
-      <h1 class="col-md-12">Games</h1>
+      <h1 class="col-md-12">{{ $t('message.label.games') }}</h1>
       <div class="col-md-12 text-end" v-if="userStore.userData && userStore.isAdmin">
         <button class="btn btn-primary me-2" type="button" @click="gameStore.actionNewGame()">
           <i class="bi bi-plus-lg"></i>
-          New Game
+          {{ $t('message.label.newGame') }}
         </button>
       </div>
       <div class="col-md-12">
         <table class="table table-striped table-sm">
           <thead>
           <tr>
-            <th class="text-center">Place</th>
-            <th class="text-center">Date and Time</th>
-            <th class="text-center">Type</th>
-            <th/>
+            <th class="text-center">{{ $t('message.label.place') }}</th>
+            <th class="text-center">{{ $t('message.label.dateAndTime') }}</th>
+            <th class="text-center">{{ $t('message.label.type') }}</th>
           </tr>
           </thead>
           <tbody>

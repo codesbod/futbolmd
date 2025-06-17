@@ -22,19 +22,19 @@ const loginPlayer = () => {
     <form class="row g-3 w-100 needs-validation was-validated" novalidate @submit.prevent="loginPlayer">
       <h1 class="col-md-12">{{ $t('message.menu.login') }}</h1>
       <div class="col-md-6">
-        <label for="email" class="form-label">Email</label>
-        <input type="email" class="form-control" id="email" v-model.trim="email" placeholder="Ingrese un email"
+        <label for="email" class="form-label">{{ $t('message.label.email') }}</label>
+        <input type="email" class="form-control" id="email" v-model.trim="email" :placeholder="$t('message.label.enterEmail')"
                required>
         <div class="invalid-feedback">
-          Email required
+          {{ $t('message.label.emailRequired') }}
         </div>
       </div>
       <div class="col-md-6">
-        <label for="password" class="form-label">Password</label>
+        <label for="password" class="form-label">{{ $t('message.label.password') }}</label>
         <input type="password" class="form-control" id="password" v-model.trim="password"
-               placeholder="Ingrese un contraseña" required>
+               :placeholder="$t('message.label.enterPassword')" required>
         <div class="invalid-feedback">
-          Password required
+          {{ $t('message.label.passwordRequired') }}
         </div>
       </div>
       <div class="col-12 border-top text-center pt-2">

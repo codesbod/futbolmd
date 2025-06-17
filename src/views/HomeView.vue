@@ -76,15 +76,15 @@ init();
       </div>
       <div class="col-md-12">
         <div class="row m-auto">
-          <div class="col-md-12 text-center border-bottom fw-bold pb-2">Statistics</div>
-          <div class="col-md-2 col-4 fst-italic">Attribute:</div>
+          <div class="col-md-12 text-center border-bottom fw-bold pb-2">{{$t('message.label.statistics')}}</div>
+          <div class="col-md-2 col-4 fst-italic">{{$t('message.label.attributes')}}:</div>
           <div class="col-md-1 col-2">{{ playerStore.player?.statistic?.average }}</div>
-          <div class="col-md-2 col-4 fst-italic">Surveys:</div>
+          <div class="col-md-2 col-4 fst-italic">{{$t('message.label.surveys')}}:</div>
           <!--<div class="col-md-1 col-2">{{ playerStore.player?.attributes[9].rating }}</div>-->
           <div class="col-md-1 col-2">0</div>
-          <div class="col-md-2 col-4 fst-italic">Game:</div>
+          <div class="col-md-2 col-4 fst-italic">{{$t('message.label.games')}}:</div>
           <div class="col-md-1 col-2">{{ playerStore.player?.statistic?.games }}</div>
-          <div class="col-md-2 col-4 fst-italic">Goals:</div>
+          <div class="col-md-2 col-4 fst-italic">{{$t('message.label.goals')}}:</div>
           <div class="col-md-1 col-2">{{ playerStore.player?.statistic?.goals }}</div>
         </div>
       </div>

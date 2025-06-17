@@ -11,14 +11,14 @@ const formatDate = (date) => {
 <template>
   <div class="detailGame">
     <div class="row g-3 w-100">
-      <h1 class="col-md-12">Detail Game</h1>
+      <h1 class="col-md-12">{{ $t('message.label.detailGame') }}</h1>
       <div class="col-md-12">
         <table class="table table-striped table-sm">
           <thead>
           <tr>
-            <th class="text-center">Place</th>
-            <th class="text-center">Date and Time</th>
-            <th class="text-center">Type</th>
+            <th class="text-center">{{ $t('message.label.place') }}</th>
+            <th class="text-center">{{ $t('message.label.dateAndTime') }}</th>
+            <th class="text-center">{{ $t('message.label.type') }}</th>
           </tr>
           </thead>
           <tbody>
