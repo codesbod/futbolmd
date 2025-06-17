@@ -23,7 +23,6 @@ const formatDate = (date) => {
             <th class="text-center">Place</th>
             <th class="text-center">Date and Time</th>
             <th class="text-center">Type</th>
-            <th/>
           </tr>
           </thead>
           <tbody>

@@ -20,7 +20,7 @@ const loginPlayer = () => {
 <template>
   <div class="login">
     <form class="row g-3 w-100 needs-validation was-validated" novalidate @submit.prevent="loginPlayer">
-      <h1 class="col-md-12">Login</h1>
+      <h1 class="col-md-12">{{ $t('message.menu.login') }}</h1>
       <div class="col-md-6">
         <label for="email" class="form-label">Email</label>
         <input type="email" class="form-control" id="email" v-model.trim="email" placeholder="Ingrese un email"
@@ -41,7 +41,7 @@ const loginPlayer = () => {
         <button class="btn btn-primary" type="submit"  :disabled="userStore.loadingAction">
           <span class="spinner-border spinner-border-sm" v-show="userStore.loadingAction"></span>
           <span class="bi bi-box-arrow-in-right" v-show="!userStore.loadingAction"></span>
-          Login
+          {{ $t('message.menu.login') }}
         </button>
       </div>
     </form>
