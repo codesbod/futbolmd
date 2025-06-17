@@ -54,35 +54,35 @@ const removePlayerGame = (objPlayer) => {
 <template>
   <div class="game">
     <form class="row g-3 w-100 needs-validation was-validated" novalidate @submit.prevent="save">
-      <h1 class="col-md-12">Game</h1>
+      <h1 class="col-md-12">{{ $t('message.label.game') }}</h1>
       <div class="col-md-12">
-        <label for="place" class="form-label">Place</label>
+        <label for="place" class="form-label"> {{ $t('message.label.place') }}</label>
         <input type="text" class="form-control" id="place" v-model.trim="gameStore.game.place"
-               placeholder="Ingrese su lugar" required>
+               :placeholder="$t('message.label.enterPlace')" required>
         <div class="invalid-feedback">
-          Place required
+          {{ $t('message.label.placeRequired') }}
         </div>
       </div>
       <div class="col-md-6">
-        <label for="dateTime" class="form-label">DateTime</label>
+        <label for="dateTime" class="form-label">{{ $t('message.label.datetime') }}</label>
         <input type="datetime-local" class="form-control" id="dateTime" v-model.trim="gameStore.game.dateTime"
-               placeholder="Ingrese la fecha y hora" required>
+               :placeholder="$t('message.label.enterDate')" required>
         <div class="invalid-feedback">
-          Datetime required
+          {{ $t('message.label.dateRequired') }}
         </div>
       </div>
       <div class="col-md-6">
-        <label for="type" class="form-label">Type</label>
+        <label for="type" class="form-label">{{ $t('message.label.type') }}</label>
         <select class="form-select" id="type" v-model="gameStore.game.type" required>
           <option v-for="type in gameStore.types" :key="type.code" :value="type">{{ type.name }} ({{ type.code }})
           </option>
         </select>
         <div class="invalid-feedback">
-          Type required
+          {{ $t('message.label.typeRequired') }}
         </div>
       </div>
       <div class="col-md-12">
-        <label class="form-label">Add Player</label>
+        <label class="form-label">{{ $t('message.label.addPlayer') }}</label>
         <div class="row">
           <div class="col-10">
             <select class="form-select" v-model="selectPlayer">
@@ -103,11 +103,10 @@ const removePlayerGame = (objPlayer) => {
         <table class="table table-striped table-sm">
           <thead>
           <tr>
-            <th class="text-center">No.</th>
-            <th class="text-center">First Name</th>
-            <th class="text-center">Last Name</th>
-            <th class="text-center">Average</th>
-            <th/>
+            <th class="text-center">{{$t('message.label.number')}}</th>
+            <th class="text-center">{{$t('message.label.firstName')}}</th>
+            <th class="text-center">{{$t('message.label.lastName')}}</th>
+            <th class="text-center">{{$t('message.label.average')}}</th>
           </tr>
           </thead>
           <tbody>
@@ -126,7 +125,7 @@ const removePlayerGame = (objPlayer) => {
         </table>
       </div>
       <div class="col-md-6" v-show="gameStore.game.teamOne?.length > 0">
-        <label class="form-label fw-bold">Players team one</label>
+        <label class="form-label fw-bold">{{$t('message.label.playersTeamOne')}}</label>
         <ul class="list-group list-group-flush">
           <li class="list-group-item text-orange p-0 ps-3" v-for="(player, index) in gameStore.game.teamOne" :key="player.id">
             {{index + 1}}. {{player.firstName}} {{player.lastName}}
@@ -134,7 +133,7 @@ const removePlayerGame = (objPlayer) => {
         </ul>
       </div>
       <div class="col-md-6" v-show="gameStore.game.teamTwo?.length > 0">
-        <label class="form-label fw-bold">Players team two</label>
+        <label class="form-label fw-bold">{{$t('message.label.playersTeamTwo')}}</label>
         <ul class="list-group list-group-flush">
           <li class="list-group-item text-chartreuse p-0 ps-3" v-for="(player,index) in gameStore.game.teamTwo" :key="player.id">
             {{index + 1}}. {{player.firstName}} {{player.lastName}}
@@ -142,19 +141,21 @@ const removePlayerGame = (objPlayer) => {
         </ul>
       </div>
       <div class="col-md-6" v-show="gameStore.game.teamOne?.length > 0">
-        <label for="goalsTeamOne" class="form-label">Goal Team One</label>
+        <label for="goalsTeamOne" class="form-label">{{$t('message.label.goalTeamOne')}}</label>
         <input type="number" class="form-control" id="goalsTeamOne" v-model.trim="gameStore.game.goalsTeamOne"
-               placeholder="Ingrese numero de goles">
+        :placeholder="$t('message.label.enterGoals')">
         <div class="invalid-feedback">
+          {{$t('message.label.goalRequired')}}
           Goal required
         </div>
       </div>
       <div class="col-md-6" v-show="gameStore.game.teamTwo?.length > 0">
-        <label for="goalsTeamTwo" class="form-label">Goals Team Two</label>
+        <label for="goalsTeamTwo" class="form-label">{{$t('message.label.goalTeamTwo')}}</label>
         <input type="number" class="form-control" id="goalsTeamTwo" v-model.trim="gameStore.game.goalsTeamTwo"
-               placeholder="Ingrese numero de goles">
+               :placeholder="$t('message.label.enterGoals')">
         <div class="invalid-feedback">
-          Goal required
+          {{$t('message.label.goalRequired')}}
+          
         </div>
       </div>
       <div class="col-12 border-top text-center pt-2">
