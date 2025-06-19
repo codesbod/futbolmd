@@ -111,7 +111,7 @@ export const useGameStore = defineStore('gameStore', () => {
         console.log("playersIsPortero", playersIsPortero);
 
         const players = game.value.players.filter(player =>
-            !playersIsPortero.some(p => p.id === player.id)
+            !playersIsPortero.some(p => p.id === player.id)git
         );
         console.log("players", players);
 
