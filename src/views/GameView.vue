@@ -23,7 +23,41 @@ const invitado = ref({
   id: null,
   firstName: 'Invitado',
   lastName: 'Invitado',
-  average: 99
+  average: 99,
+  positions: [
+    {
+      code: "PORTERO", name: "Portero",
+      positions: [
+        {code: "PP", name: "Portero", value: false}
+      ]
+    },
+    {
+      code: "DEFENSA", name: "Defensa",
+      positions: [
+        {code: "DFD", name: "Defensa Derecho", value: true},
+        {code: "DFC", name: "Defensa Central", value: true},
+        {code: "DFI", name: "Defensa Izquierdo", value: true}
+      ]
+    },
+    {
+      code: "MEDIO", name: "Medio",
+      positions: [
+        {code: "MCD", name: "Medio Defensivo", value: true},
+        {code: "MD", name: "Medio Derecho", value: true},
+        {code: "MC", name: "Medio", value: true},
+        {code: "MI", name: "Medio Izquierdo", value: true},
+        {code: "MCO", name: "Medio Ofensivo", value: true},
+      ]
+    },
+    {
+      code: "DELANTERO", name: "Delantero",
+      positions: [
+        {code: "DD", name: "Delantero Derecho", value: true},
+        {code: "DC", name: "Delantero Centro", value: true},
+        {code: "DI", name: "Delantero Izquierdo", value: true}
+      ]
+    }
+  ],
 });
 
 const selectPlayer = ref({});
@@ -38,11 +72,13 @@ const addPlayerGame = () => {
     invitado.value.id = uuidv4();
   }
 
+  const isPortero = selectPlayer.value.positions.find(p => p.code === 'PORTERO') ?.positions.some(sub => sub.value === true);
   gameStore.game.players.push({
     id: selectPlayer.value.id,
     firstName: selectPlayer.value.firstName,
     lastName: selectPlayer.value.lastName,
     average: selectPlayer.value.average,
+    isPortero: isPortero,
   });
   selectPlayer.value = {};
 }
@@ -86,7 +122,10 @@ const removePlayerGame = (objPlayer) => {
         <div class="row">
           <div class="col-10">
             <select class="form-select" v-model="selectPlayer">
-              <option :value="invitado" class="fw-bold text-danger">{{ invitado.firstName }} {{ invitado.lastName }}</option>
+              <option :value="invitado" class="fw-bold text-danger">{{ invitado.firstName }} {{
+                  invitado.lastName
+                }}
+              </option>
               <option v-for="player in playerStore.players" :key="player.id" :value="player">
                 {{ player.firstName }} {{ player.lastName }}
               </option>
@@ -103,10 +142,10 @@ const removePlayerGame = (objPlayer) => {
         <table class="table table-striped table-sm">
           <thead>
           <tr>
-            <th class="text-center">{{$t('message.label.number')}}</th>
-            <th class="text-center">{{$t('message.label.firstName')}}</th>
-            <th class="text-center">{{$t('message.label.lastName')}}</th>
-            <th class="text-center">{{$t('message.label.average')}}</th>
+            <th class="text-center">{{ $t('message.label.number') }}</th>
+            <th class="text-center">{{ $t('message.label.firstName') }}</th>
+            <th class="text-center">{{ $t('message.label.lastName') }}</th>
+            <th class="text-center">{{ $t('message.label.average') }}</th>
           </tr>
           </thead>
           <tbody>
@@ -125,47 +164,51 @@ const removePlayerGame = (objPlayer) => {
         </table>
       </div>
       <div class="col-md-6" v-show="gameStore.game.teamOne?.length > 0">
-        <label class="form-label fw-bold">{{$t('message.label.playersTeamOne')}}</label>
+        <label class="form-label fw-bold">{{ $t('message.label.playersTeamOne') }}</label>
         <ul class="list-group list-group-flush">
-          <li class="list-group-item text-orange p-0 ps-3" v-for="(player, index) in gameStore.game.teamOne" :key="player.id">
-            {{index + 1}}. {{player.firstName}} {{player.lastName}}
+          <li class="list-group-item text-orange p-0 ps-3" v-for="(player, index) in gameStore.game.teamOne"
+              :key="player.id">
+            {{ index + 1 }}. {{ player.firstName }} {{ player.lastName }}
           </li>
         </ul>
       </div>
       <div class="col-md-6" v-show="gameStore.game.teamTwo?.length > 0">
-        <label class="form-label fw-bold">{{$t('message.label.playersTeamTwo')}}</label>
+        <label class="form-label fw-bold">{{ $t('message.label.playersTeamTwo') }}</label>
         <ul class="list-group list-group-flush">
-          <li class="list-group-item text-chartreuse p-0 ps-3" v-for="(player,index) in gameStore.game.teamTwo" :key="player.id">
-            {{index + 1}}. {{player.firstName}} {{player.lastName}}
+          <li class="list-group-item text-chartreuse p-0 ps-3" v-for="(player,index) in gameStore.game.teamTwo"
+              :key="player.id">
+            {{ index + 1 }}. {{ player.firstName }} {{ player.lastName }}
           </li>
         </ul>
       </div>
       <div class="col-md-6" v-show="gameStore.game.teamOne?.length > 0">
-        <label for="goalsTeamOne" class="form-label">{{$t('message.label.goalTeamOne')}}</label>
+        <label for="goalsTeamOne" class="form-label">{{ $t('message.label.goalTeamOne') }}</label>
         <input type="number" class="form-control" id="goalsTeamOne" v-model.trim="gameStore.game.goalsTeamOne"
-        :placeholder="$t('message.label.enterGoals')">
+               :placeholder="$t('message.label.enterGoals')">
         <div class="invalid-feedback">
-          {{$t('message.label.goalRequired')}}
+          {{ $t('message.label.goalRequired') }}
           Goal required
         </div>
       </div>
       <div class="col-md-6" v-show="gameStore.game.teamTwo?.length > 0">
-        <label for="goalsTeamTwo" class="form-label">{{$t('message.label.goalTeamTwo')}}</label>
+        <label for="goalsTeamTwo" class="form-label">{{ $t('message.label.goalTeamTwo') }}</label>
         <input type="number" class="form-control" id="goalsTeamTwo" v-model.trim="gameStore.game.goalsTeamTwo"
                :placeholder="$t('message.label.enterGoals')">
         <div class="invalid-feedback">
-          {{$t('message.label.goalRequired')}}
-          
+          {{ $t('message.label.goalRequired') }}
+
         </div>
       </div>
       <div class="col-12 border-top text-center pt-2">
 
-        <button class="btn btn-outline-secondary me-1" type="button" @click="statisticStore.calculateStatistic(gameStore.game)">
+        <button class="btn btn-outline-secondary me-1" type="button"
+                @click="statisticStore.calculateStatistic(gameStore.game)">
           <i class="bi bi-dice-5"></i>
           Calculate Statistic
         </button>
 
-        <button class="btn btn-outline-secondary me-1" type="button" :disabled="gameStore.loadingGame" @click="gameStore.divideTeams()">
+        <button class="btn btn-outline-secondary me-1" type="button" :disabled="gameStore.loadingGame"
+                @click="gameStore.divideTeams()">
           <span class="spinner-border spinner-border-sm" v-show="gameStore.loadingGame"></span>
           <span class="bi bi-shuffle" v-show="!gameStore.loadingGame"></span>
           Distribute Teams

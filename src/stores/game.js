@@ -101,14 +101,21 @@ export const useGameStore = defineStore('gameStore', () => {
     }
 
     const divideTeams = () => {
-        let sumTeam1 = 0;
-        let sumTeam2 = 0;
-
         game.value.players.sort((a, b) => b.average - a.average);
         game.value.teamOne = [];
         game.value.teamTwo = [];
 
-        game.value.players.forEach(player => {
+        const playersIsPortero = game.value.players
+            .filter(player => player.isPortero)
+            .slice(0, 2);
+
+        const players = game.value.players.filter(player =>
+            playersIsPortero.some(p => p.id !== player.id)
+        );
+
+        let sumTeam1 = 0;
+        let sumTeam2 = 0;
+        players.forEach(player => {
             if (sumTeam1 <= sumTeam2) {
                 game.value.teamOne.push(player);
                 sumTeam1 += Number(player.average);
@@ -117,6 +124,19 @@ export const useGameStore = defineStore('gameStore', () => {
                 sumTeam2 += Number(player.average);
             }
         });
+
+        if(playersIsPortero.length === 1){
+            if(game.value.teamOne.length < game.value.teamTwo.length){
+                game.value.teamOne.push(playersIsPortero[0]);
+            }else{
+                game.value.teamTwo.push(playersIsPortero[0]);
+            }
+        }
+
+        if(playersIsPortero.length === 2){
+            game.value.teamOne.push(playersIsPortero[0]);
+            game.value.teamTwo.push(playersIsPortero[1]);
+        }
     }
 
     const actionNewGame = async () => {
