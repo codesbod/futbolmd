@@ -108,10 +108,12 @@ export const useGameStore = defineStore('gameStore', () => {
         const playersIsPortero = game.value.players
             .filter(player => player.isPortero)
             .slice(0, 2);
+        console.log("playersIsPortero", playersIsPortero);
 
         const players = game.value.players.filter(player =>
-            playersIsPortero.some(p => p.id !== player.id)
+            !playersIsPortero.some(p => p.id === player.id)
         );
+        console.log("players", players);
 
         let sumTeam1 = 0;
         let sumTeam2 = 0;
@@ -124,8 +126,12 @@ export const useGameStore = defineStore('gameStore', () => {
                 sumTeam2 += Number(player.average);
             }
         });
+        console.log("game.value.teamOne", game.value.teamOne);
+        console.log("game.value.teamTwo", game.value.teamTwo);
+
 
         if(playersIsPortero.length === 1){
+            console.log("playersIsPortero.length === 1");
             if(game.value.teamOne.length < game.value.teamTwo.length){
                 game.value.teamOne.push(playersIsPortero[0]);
             }else{
@@ -134,9 +140,12 @@ export const useGameStore = defineStore('gameStore', () => {
         }
 
         if(playersIsPortero.length === 2){
+            console.log("playersIsPortero.length === 2");
             game.value.teamOne.push(playersIsPortero[0]);
             game.value.teamTwo.push(playersIsPortero[1]);
         }
+        console.log("game.value.teamOne", game.value.teamOne);
+        console.log("game.value.teamTwo", game.value.teamTwo);
     }
 
     const actionNewGame = async () => {
