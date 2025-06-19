@@ -2,8 +2,10 @@
 import {useGameStore} from '@/stores/game';
 import {usePlayerStore} from '@/stores/player';
 import {useStatisticStore} from '@/stores/statistic';
-import {ref} from "vue";
+import {ref, computed} from "vue";
+import dayjs from "dayjs";
 import {v4 as uuidv4} from "uuid";
+
 
 const statisticStore = useStatisticStore();
 const gameStore = useGameStore();
@@ -86,6 +88,37 @@ const addPlayerGame = () => {
 const removePlayerGame = (objPlayer) => {
   gameStore.game.players = gameStore.game.players.filter(player => player.id !== objPlayer?.id);
 };
+
+
+
+const formattedDateTime = computed({
+
+  get() {
+    const dateTimeValue = gameStore.game.dateTime;
+
+    if (dateTimeValue) {
+      if (typeof dateTimeValue.seconds === 'number') {
+         return dayjs.unix(dateTimeValue.seconds).format("YYYY-MM-DDTHH:mm");
+      }
+      return dayjs(dateTimeValue).format("YYYY-MM-DDTHH:mm");
+    }
+    return '';
+  },
+
+  set(newValue) {
+    if (newValue) {
+      const newDayJsDate = dayjs(newValue);
+      gameStore.game.dateTime = newDayJsDate.toDate();
+    } else {
+      gameStore.game.dateTime = null; 
+    }
+  },
+});
+
+
+
+
+
 </script>
 <template>
   <div class="game">
@@ -101,7 +134,7 @@ const removePlayerGame = (objPlayer) => {
       </div>
       <div class="col-md-6">
         <label for="dateTime" class="form-label">{{ $t('message.label.datetime') }}</label>
-        <input type="datetime-local" class="form-control" id="dateTime" v-model.trim="gameStore.game.dateTime"
+        <input type="datetime-local" class="form-control" id="dateTime" v-model="formattedDateTime"
                :placeholder="$t('message.label.enterDate')" required>
         <div class="invalid-feedback">
           {{ $t('message.label.dateRequired') }}
