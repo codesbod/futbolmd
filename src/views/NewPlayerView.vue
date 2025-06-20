@@ -20,36 +20,36 @@ const newPlayer = () => {
 <template>
   <div class="login">
     <form class="row g-3 w-100 needs-validation was-validated" novalidate @submit.prevent="newPlayer">
-      <h1 class="col-md-12">New Player</h1>
+      <h1 class="col-md-12">{{ $t('message.menu.newPlayer') }}</h1>
       <div class="col-md-6">
-        <label for="email" class="form-label">Email</label>
-        <input type="email" class="form-control" id="email" v-model.trim="email" placeholder="Ingrese un email"
+        <label for="email" class="form-label"> {{ $t('message.label.email') }}</label>
+        <input type="email" class="form-control" id="email" v-model.trim="email" :placeholder="$t('message.label.enterEmail')"
                required>
         <div class="invalid-feedback">
-          Email required
+          {{ $t('message.label.emailRequired') }}
         </div>
       </div>
       <div class="col-md-6">
-        <label for="password" class="form-label">Password</label>
+        <label for="password" class="form-label">{{ $t('message.label.password') }}</label>
         <input type="password" class="form-control" id="password" v-model.trim="password"
-               placeholder="Ingrese un contraseña" required>
+               :placeholder="$t('message.label.enterPassword')" required>
         <div class="invalid-feedback">
-          Password required
+          {{ $t('message.label.passwordRequired') }}
         </div>
       </div>
       <div class="col-md-12">
-        <label for="codeTeam" class="form-label">Code Team</label>
+        <label for="codeTeam" class="form-label">{{ $t('message.label.codeTeam') }}</label>
         <input type="password" class="form-control" id="codeTeam" v-model.trim="codeTeam"
-               placeholder="Ingrese el código del equipo" required>
+               :placeholder="$t('message.label.enterCodeTeam')" required>
         <div class="invalid-feedback">
-          Code team required
+          {{ $t('message.label.passwordCodeTeam') }}
         </div>
       </div>
       <div class="col-12 border-top text-center pt-2">
         <button class="btn btn-primary" type="submit" :disabled="userStore.loadingAction">
           <span class="spinner-border spinner-border-sm" v-show="userStore.loadingAction"></span>
           <span class="bi bi-person-plus" v-show="!userStore.loadingAction"></span>
-          New player
+          {{ $t('message.btn.newPlayer') }}
         </button>
       </div>
     </form>

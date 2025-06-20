@@ -237,20 +237,20 @@ const formattedDateTime = computed({
         <button class="btn btn-outline-secondary me-1" type="button"
                 @click="statisticStore.calculateStatistic(gameStore.game)">
           <i class="bi bi-dice-5"></i>
-          Calculate Statistic
+          {{ $t('message.btn.calculateStatistic') }}
         </button>
 
         <button class="btn btn-outline-secondary me-1" type="button" :disabled="gameStore.loadingGame"
                 @click="gameStore.divideTeams()">
           <span class="spinner-border spinner-border-sm" v-show="gameStore.loadingGame"></span>
           <span class="bi bi-shuffle" v-show="!gameStore.loadingGame"></span>
-          Distribute Teams
+          {{ $t('message.btn.distributeTeams') }}
         </button>
 
         <button class="btn btn-primary me-1" type="submit" :disabled="gameStore.loadingGame">
           <span class="spinner-border spinner-border-sm" v-show="gameStore.loadingGame"></span>
           <span class="bi bi-floppy" v-show="!gameStore.loadingGame"></span>
-          Save
+          {{ $t('message.btn.save') }}
         </button>
       </div>
     </form>

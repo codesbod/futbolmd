@@ -37,7 +37,7 @@ const userStore = useUserStore();
             <RouterLink v-show="userStore.userData" class="btn btn-primary btn-sm" to="/games">{{ $t('message.menu.games') }}</RouterLink>
             <RouterLink v-show="userStore.userData" class="btn btn-primary btn-sm" to="/player">{{ $t('message.menu.player') }}</RouterLink>
             <RouterLink v-show="!userStore.userData" class="btn btn-primary btn-sm" to="/login">{{ $t('message.menu.login') }}</RouterLink>
-            <RouterLink v-show="!userStore.userData" class="btn btn-primary btn-sm" to="/newPlayer"> {{ $t('message.menu.new_player') }}</RouterLink>
+            <RouterLink v-show="!userStore.userData" class="btn btn-primary btn-sm" to="/newPlayer"> {{ $t('message.menu.newPlayer') }}</RouterLink>
             <button v-show="userStore.userData" class="btn btn-primary btn-sm" type="button" @click="userStore.logoutUser()"
                     :disabled="userStore.loadingAction">
               <span class="spinner-border spinner-border-sm" v-show="userStore.loadingAction"></span>

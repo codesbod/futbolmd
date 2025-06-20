@@ -19,7 +19,7 @@ const formatDate = (date) => {
       <div class="col-md-12 text-end" v-if="userStore.userData && userStore.isAdmin">
         <button class="btn btn-primary me-2" type="button" @click="gameStore.actionNewGame()">
           <i class="bi bi-plus-lg"></i>
-          {{ $t('message.label.newGame') }}
+          {{ $t('message.btn.newGame') }}
         </button>
       </div>
       <div class="col-md-12">

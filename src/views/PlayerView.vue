@@ -77,7 +77,7 @@ const save = () => {
         <button class="btn btn-primary" type="submit" :disabled="playerStore.loadingPlayer">
           <span class="spinner-border spinner-border-sm" v-show="playerStore.loadingPlayer"></span>
           <span class="bi bi-floppy" v-show="!playerStore.loadingPlayer"></span>
-          {{ $t('message.label.save') }}
+          {{ $t('message.btn.save') }}
         </button>
       </div>
     </form>

@@ -41,7 +41,7 @@ const loginPlayer = () => {
         <button class="btn btn-primary" type="submit"  :disabled="userStore.loadingAction">
           <span class="spinner-border spinner-border-sm" v-show="userStore.loadingAction"></span>
           <span class="bi bi-box-arrow-in-right" v-show="!userStore.loadingAction"></span>
-          {{ $t('message.menu.login') }}
+          {{ $t('message.btn.login') }}
         </button>
       </div>
     </form>
