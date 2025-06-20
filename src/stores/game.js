@@ -81,21 +81,21 @@ export const useGameStore = defineStore('gameStore', () => {
 
     const addGame = async () => {
         loadingGame.value = true;
-        try{
+        try {
             game.value.dateTime = new Date(game.value.dateTime);
-            if(game.value.id !== null){
+            if (game.value.id !== null) {
                 await setDoc(doc(db, "game", game.value.id), game.value);
-            }else{
+            } else {
                 const docRef = await addDoc(collection(db, "game"), game.value);
                 game.value.id = docRef.id;
                 await setDoc(doc(db, "game", game.value.id), game.value);
             }
             await router.push('/games');
-        }catch (error){
+        } catch (error) {
             const errorCode = error.code;
             const errorMessage = error.message;
             console.log(`${errorCode} ${errorMessage}`);
-        }finally {
+        } finally {
             loadingGame.value = false;
         }
     }
@@ -108,44 +108,55 @@ export const useGameStore = defineStore('gameStore', () => {
         const playersIsPortero = game.value.players
             .filter(player => player.isPortero)
             .slice(0, 2);
-        console.log("playersIsPortero", playersIsPortero);
+        //console.log("playersIsPortero", playersIsPortero);
 
-        const players = game.value.players.filter(player =>
-            !playersIsPortero.some(p => p.id === player.id)
-        );
-        console.log("players", players);
+        const playersInvitados = game.value.players
+            .filter(player => player.firstName === 'Invitado');
+        //console.log("playersInvitados", playersInvitados);
 
-        let sumTeam1 = 0;
-        let sumTeam2 = 0;
+        const players = game.value.players
+            .filter(player =>
+                !playersIsPortero.some(p => p.id === player.id) &&
+                !playersInvitados.some(p => p.id === player.id)
+            );
+        //console.log("players", players);
+
         players.forEach(player => {
-            if (sumTeam1 <= sumTeam2) {
+            if (game.value.teamOne.length === game.value.teamTwo.length) {
                 game.value.teamOne.push(player);
-                sumTeam1 += Number(player.average);
             } else {
                 game.value.teamTwo.push(player);
-                sumTeam2 += Number(player.average);
             }
         });
-        console.log("game.value.teamOne", game.value.teamOne);
-        console.log("game.value.teamTwo", game.value.teamTwo);
+        //console.log("game.value.teamOne", game.value.teamOne);
+        //console.log("game.value.teamTwo", game.value.teamTwo);
 
-
-        if(playersIsPortero.length === 1){
+        if (playersIsPortero.length === 1) {
             console.log("playersIsPortero.length === 1");
-            if(game.value.teamOne.length < game.value.teamTwo.length){
+            if (game.value.teamOne.length < game.value.teamTwo.length) {
                 game.value.teamOne.push(playersIsPortero[0]);
-            }else{
+            } else {
                 game.value.teamTwo.push(playersIsPortero[0]);
             }
         }
 
-        if(playersIsPortero.length === 2){
+        if (playersIsPortero.length === 2) {
             console.log("playersIsPortero.length === 2");
             game.value.teamOne.push(playersIsPortero[0]);
             game.value.teamTwo.push(playersIsPortero[1]);
         }
-        console.log("game.value.teamOne", game.value.teamOne);
-        console.log("game.value.teamTwo", game.value.teamTwo);
+        //console.log("game.value.teamOne", game.value.teamOne);
+        //console.log("game.value.teamTwo", game.value.teamTwo);
+
+        playersInvitados.forEach(invitados => {
+            if (game.value.teamOne.length === game.value.teamTwo.length) {
+                game.value.teamOne.push(invitados);
+            } else {
+                game.value.teamTwo.push(invitados);
+            }
+        });
+        //console.log("game.value.teamOne", game.value.teamOne);
+        //console.log("game.value.teamTwo", game.value.teamTwo);
     }
 
     const actionNewGame = async () => {
@@ -168,5 +179,20 @@ export const useGameStore = defineStore('gameStore', () => {
         game.value = newGame.value;
     };
 
-    return {loadingGame, types, games, newGame, game, getGames, addGame, divideTeams, actionNewGame, actionUpdateGame, actionViewGame, resetStore,  getHistoryGames, getGamesSurveys }
+    return {
+        loadingGame,
+        types,
+        games,
+        newGame,
+        game,
+        getGames,
+        addGame,
+        divideTeams,
+        actionNewGame,
+        actionUpdateGame,
+        actionViewGame,
+        resetStore,
+        getHistoryGames,
+        getGamesSurveys
+    }
 })
