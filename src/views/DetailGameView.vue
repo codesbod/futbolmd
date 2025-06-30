@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import {useGameStore} from '@/stores/game';
 import dayjs from "dayjs";
+import PlayerCard from "@/components/PlayerCard.vue";
 
 const gameStore = useGameStore();
 
@@ -31,25 +32,28 @@ const formatDate = (date) => {
         </table>
       </div>
       <div class="col-md-12 text-center fs-1">
-        <span class="text-orange">{{ gameStore.game.goalsTeamOne }}</span> - <span class="text-chartreuse">{{ gameStore.game.goalsTeamTwo }}</span>
+        <span class="text-orange">{{ gameStore.game.goalsTeamOne }}</span> - <span
+          class="text-chartreuse">{{ gameStore.game.goalsTeamTwo }}</span>
       </div>
       <div class="col-md-12" v-if="gameStore.game.type?.code === 'F5'">
         <div class="cancha p-2 text-white text-lowercase m-auto">
-
           <div class="row team text-orange">
-            <div class="col-12 text-center"><i class="bi bi-shield-fill m-1"></i>{{gameStore.game.teamOne[5]?.firstName}} {{gameStore.game.teamOne[5]?.lastName}}</div>
-            <div class="col-6 text-center"><i class="bi bi-shield-fill m-1"></i>{{gameStore.game.teamOne[0]?.firstName}} {{gameStore.game.teamOne[0]?.lastName}}</div><div class="col-6 text-center"><i class="bi bi-shield-fill m-1"></i>{{gameStore.game.teamOne[1]?.firstName}} {{gameStore.game.teamOne[1]?.lastName}}</div>
-            <div class="col-6 text-center"><i class="bi bi-shield-fill m-1"></i>{{gameStore.game.teamOne[2]?.firstName}} {{gameStore.game.teamOne[2]?.lastName}}</div><div class="col-6 text-center"><i class="bi bi-shield-fill m-1"></i>{{gameStore.game.teamOne[3]?.firstName}} {{gameStore.game.teamOne[3]?.lastName}}</div>
-            <div class="col-12 text-center"><i class="bi bi-shield-fill m-1"></i>{{gameStore.game.teamOne[4]?.firstName}} {{gameStore.game.teamOne[4]?.lastName}}</div>
+            <PlayerCard class="col-12 text-center" :player="gameStore.game.teamOne[5]"></PlayerCard>
+            <PlayerCard class="col-6 text-center" :player="gameStore.game.teamOne[4]"></PlayerCard>
+            <PlayerCard class="col-6 text-center" :player="gameStore.game.teamOne[3]"></PlayerCard>
+            <PlayerCard class="col-6 text-center" :player="gameStore.game.teamOne[2]"></PlayerCard>
+            <PlayerCard class="col-6 text-center" :player="gameStore.game.teamOne[1]"></PlayerCard>
+            <PlayerCard class="col-12 text-center" :player="gameStore.game.teamOne[0]"></PlayerCard>
           </div>
 
           <div class="row team text-chartreuse">
-            <div class="col-12 text-center"><i class="bi bi-shield-fill m-1"></i>{{gameStore.game.teamTwo[5]?.firstName}} {{gameStore.game.teamTwo[5]?.lastName}}</div>
-            <div class="col-6 text-center"><i class="bi bi-shield-fill m-1"></i>{{gameStore.game.teamTwo[0]?.firstName}} {{gameStore.game.teamTwo[0]?.lastName}}</div><div class="col-6 text-center"><i class="bi bi-shield-fill m-1"></i>{{gameStore.game.teamTwo[1]?.firstName}} {{gameStore.game.teamTwo[1]?.lastName}}</div>
-            <div class="col-6 text-center"><i class="bi bi-shield-fill m-1"></i>{{gameStore.game.teamTwo[2]?.firstName}} {{gameStore.game.teamTwo[2]?.lastName}}</div><div class="col-6 text-center"><i class="bi bi-shield-fill m-1"></i>{{gameStore.game.teamTwo[3]?.firstName}} {{gameStore.game.teamTwo[3]?.lastName}}</div>
-            <div class="col-12 text-center"><i class="bi bi-shield-fill m-1"></i>{{gameStore.game.teamTwo[4]?.firstName}} {{gameStore.game.teamTwo[4]?.lastName}}</div>
+            <PlayerCard class="col-12 text-center" :player="gameStore.game.teamTwo[0]"></PlayerCard>
+            <PlayerCard class="col-6 text-center" :player="gameStore.game.teamTwo[1]"></PlayerCard>
+            <PlayerCard class="col-6 text-center" :player="gameStore.game.teamTwo[2]"></PlayerCard>
+            <PlayerCard class="col-6 text-center" :player="gameStore.game.teamTwo[3]"></PlayerCard>
+            <PlayerCard class="col-6 text-center" :player="gameStore.game.teamTwo[4]"></PlayerCard>
+            <PlayerCard class="col-12 text-center" :player="gameStore.game.teamTwo[5]"></PlayerCard>
           </div>
-
         </div>
       </div>
 
@@ -57,17 +61,25 @@ const formatDate = (date) => {
         <div class="cancha p-2 text-white text-lowercase m-auto">
 
           <div class="row team text-orange">
-            <div class="col-12 text-center"><i class="bi bi-shield-fill m-1"></i>{{gameStore.game.teamOne[7]?.firstName}} {{gameStore.game.teamOne[7]?.lastName}}</div>
-            <div class="col-6 text-center"><i class="bi bi-shield-fill m-1"></i>{{gameStore.game.teamOne[0]?.firstName}} {{gameStore.game.teamOne[0]?.lastName}}</div><div class="col-6 text-center"><i class="bi bi-shield-fill m-1"></i>{{gameStore.game.teamOne[1]?.firstName}} {{gameStore.game.teamOne[1]?.lastName}}</div>
-            <div class="col-4 text-center"><i class="bi bi-shield-fill m-1"></i>{{gameStore.game.teamOne[2]?.firstName}} {{gameStore.game.teamOne[2]?.lastName}}</div><div class="col-4 text-center"><i class="bi bi-shield-fill m-1"></i>{{gameStore.game.teamOne[3]?.firstName}} {{gameStore.game.teamOne[3]?.lastName}}</div><div class="col-4 text-center"><i class="bi bi-shield-fill m-1"></i>{{gameStore.game.teamOne[4]?.firstName}} {{gameStore.game.teamOne[4]?.lastName}}</div>
-            <div class="col-6 text-center"><i class="bi bi-shield-fill m-1"></i>{{gameStore.game.teamOne[5]?.firstName}} {{gameStore.game.teamOne[5]?.lastName}}</div><div class="col-6 text-center"><i class="bi bi-shield-fill m-1"></i>{{gameStore.game.teamOne[6]?.firstName}} {{gameStore.game.teamOne[6]?.lastName}}</div>
+            <PlayerCard class="col-12 text-center" :player="gameStore.game.teamOne[7]"></PlayerCard>
+            <PlayerCard class="col-6 text-center" :player="gameStore.game.teamOne[6]"></PlayerCard>
+            <PlayerCard class="col-6 text-center" :player="gameStore.game.teamOne[5]"></PlayerCard>
+            <PlayerCard class="col-4 text-center" :player="gameStore.game.teamOne[4]"></PlayerCard>
+            <PlayerCard class="col-4 text-center" :player="gameStore.game.teamOne[3]"></PlayerCard>
+            <PlayerCard class="col-4 text-center" :player="gameStore.game.teamOne[2]"></PlayerCard>
+            <PlayerCard class="col-6 text-center" :player="gameStore.game.teamOne[1]"></PlayerCard>
+            <PlayerCard class="col-6 text-center" :player="gameStore.game.teamOne[0]"></PlayerCard>
           </div>
 
           <div class="row team text-chartreuse">
-            <div class="col-6 text-center"><i class="bi bi-shield-fill m-1"></i>{{gameStore.game.teamTwo[5]?.firstName}} {{gameStore.game.teamTwo[5]?.lastName}}</div><div class="col-6 text-center"><i class="bi bi-shield-fill m-1"></i>{{gameStore.game.teamTwo[6]?.firstName}} {{gameStore.game.teamTwo[6]?.lastName}}</div>
-            <div class="col-4 text-center"><i class="bi bi-shield-fill m-1"></i>{{gameStore.game.teamTwo[2]?.firstName}} {{gameStore.game.teamTwo[2]?.lastName}}</div><div class="col-4 text-center"><i class="bi bi-shield-fill m-1"></i>{{gameStore.game.teamTwo[3]?.firstName}} {{gameStore.game.teamTwo[3]?.lastName}}</div><div class="col-4 text-center"><i class="bi bi-shield-fill m-1"></i>{{gameStore.game.teamTwo[4]?.firstName}} {{gameStore.game.teamTwo[4]?.lastName}}</div>
-            <div class="col-6 text-center"><i class="bi bi-shield-fill m-1"></i>{{gameStore.game.teamTwo[0]?.firstName}} {{gameStore.game.teamTwo[0]?.lastName}}</div><div class="col-6 text-center"><i class="bi bi-shield-fill m-1"></i>{{gameStore.game.teamTwo[1]?.firstName}} {{gameStore.game.teamTwo[1]?.lastName}}</div>
-            <div class="col-12 text-center"><i class="bi bi-shield-fill m-1"></i>{{gameStore.game.teamTwo[7]?.firstName}} {{gameStore.game.teamTwo[7]?.lastName}}</div>
+            <PlayerCard class="col-6 text-center" :player="gameStore.game.teamTwo[0]"></PlayerCard>
+            <PlayerCard class="col-6 text-center" :player="gameStore.game.teamTwo[1]"></PlayerCard>
+            <PlayerCard class="col-4 text-center" :player="gameStore.game.teamTwo[2]"></PlayerCard>
+            <PlayerCard class="col-4 text-center" :player="gameStore.game.teamTwo[3]"></PlayerCard>
+            <PlayerCard class="col-4 text-center" :player="gameStore.game.teamTwo[4]"></PlayerCard>
+            <PlayerCard class="col-6 text-center" :player="gameStore.game.teamTwo[5]"></PlayerCard>
+            <PlayerCard class="col-6 text-center" :player="gameStore.game.teamTwo[6]"></PlayerCard>
+            <PlayerCard class="col-12 text-center" :player="gameStore.game.teamTwo[7]"></PlayerCard>
           </div>
 
         </div>
@@ -77,21 +89,31 @@ const formatDate = (date) => {
         <div class="cancha p-2 text-white text-lowercase m-auto">
 
           <div class="row team text-orange">
-            <div class="col-12 text-center"><i class="bi bi-shield-fill m-1"></i>{{gameStore.game.teamOne[10]?.lastName}}</div>
-            <div class="col-3 text-center"><i class="bi bi-shield-fill m-1"></i>{{gameStore.game.teamOne[0]?.lastName}}</div><div class="col-3 text-center"><i class="bi bi-shield-fill m-1"></i>{{gameStore.game.teamOne[1]?.lastName}}</div><div class="col-3 text-center"><i class="bi bi-shield-fill m-1"></i>{{gameStore.game.teamOne[2]?.lastName}}</div><div class="col-3 text-center"><i class="bi bi-shield-fill m-1"></i>{{gameStore.game.teamOne[3]?.lastName}}</div>
-            <div class="col-12 text-center"><i class="bi bi-shield-fill m-1"></i>{{gameStore.game.teamOne[4]?.lastName}}</div>
-            <div class="col-6 text-center"><i class="bi bi-shield-fill m-1"></i>{{gameStore.game.teamOne[5]?.lastName}}</div><div class="col-6 text-center"><i class="bi bi-shield-fill m-1"></i>{{gameStore.game.teamOne[6]?.lastName}}</div>
-            <div class="col-12 text-center"><i class="bi bi-shield-fill m-1"></i>{{gameStore.game.teamOne[7]?.lastName}}</div>
-            <div class="col-6 text-center"><i class="bi bi-shield-fill m-1"></i>{{gameStore.game.teamOne[8]?.lastName}}</div><div class="col-6 text-center"><i class="bi bi-shield-fill m-1"></i>{{gameStore.game.teamOne[9]?.lastName}}</div>
+            <PlayerCard class="col-12 text-center" :player="gameStore.game.teamOne[10]"></PlayerCard>
+            <PlayerCard class="col-3 text-center" :player="gameStore.game.teamOne[9]"></PlayerCard>
+            <PlayerCard class="col-3 text-center" :player="gameStore.game.teamOne[8]"></PlayerCard>
+            <PlayerCard class="col-3 text-center" :player="gameStore.game.teamOne[7]"></PlayerCard>
+            <PlayerCard class="col-3 text-center" :player="gameStore.game.teamOne[6]"></PlayerCard>
+            <PlayerCard class="col-12 text-center" :player="gameStore.game.teamOne[5]"></PlayerCard>
+            <PlayerCard class="col-6 text-center" :player="gameStore.game.teamOne[4]"></PlayerCard>
+            <PlayerCard class="col-6 text-center" :player="gameStore.game.teamOne[3]"></PlayerCard>
+            <PlayerCard class="col-12 text-center" :player="gameStore.game.teamOne[2]"></PlayerCard>
+            <PlayerCard class="col-6 text-center" :player="gameStore.game.teamOne[1]"></PlayerCard>
+            <PlayerCard class="col-6 text-center" :player="gameStore.game.teamOne[0]"></PlayerCard>
           </div>
 
           <div class="row team text-chartreuse">
-            <div class="col-6 text-center"><i class="bi bi-shield-fill m-1"></i>{{gameStore.game.teamTwo[8]?.lastName}}</div><div class="col-6 text-center"><i class="bi bi-shield-fill m-1"></i>{{gameStore.game.teamTwo[9]?.lastName}}</div>
-            <div class="col-12 text-center"><i class="bi bi-shield-fill m-1"></i>{{gameStore.game.teamTwo[7]?.lastName}}</div>
-            <div class="col-6 text-center"><i class="bi bi-shield-fill m-1"></i>{{gameStore.game.teamTwo[5]?.lastName}}</div><div class="col-6 text-center"><i class="bi bi-shield-fill m-1"></i>{{gameStore.game.teamTwo[6]?.lastName}}</div>
-            <div class="col-12 text-center"><i class="bi bi-shield-fill m-1"></i>{{gameStore.game.teamTwo[4]?.lastName}}</div>
-            <div class="col-3 text-center"><i class="bi bi-shield-fill m-1"></i>{{gameStore.game.teamTwo[0]?.lastName}}</div><div class="col-3 text-center"><i class="bi bi-shield-fill m-1"></i>{{gameStore.game.teamTwo[1]?.lastName}}</div><div class="col-3 text-center"><i class="bi bi-shield-fill m-1"></i>{{gameStore.game.teamTwo[2]?.lastName}}</div><div class="col-3 text-center"><i class="bi bi-shield-fill m-1"></i>{{gameStore.game.teamTwo[3]?.lastName}}</div>
-            <div class="col-12 text-center"><i class="bi bi-shield-fill m-1"></i>{{gameStore.game.teamTwo[10]?.lastName}}</div>
+            <PlayerCard class="col-6 text-center" :player="gameStore.game.teamOne[0]"></PlayerCard>
+            <PlayerCard class="col-6 text-center" :player="gameStore.game.teamOne[1]"></PlayerCard>
+            <PlayerCard class="col-12 text-center" :player="gameStore.game.teamOne[2]"></PlayerCard>
+            <PlayerCard class="col-6 text-center" :player="gameStore.game.teamOne[3]"></PlayerCard>
+            <PlayerCard class="col-6 text-center" :player="gameStore.game.teamOne[4]"></PlayerCard>
+            <PlayerCard class="col-12 text-center" :player="gameStore.game.teamOne[5]"></PlayerCard>
+            <PlayerCard class="col-3 text-center" :player="gameStore.game.teamOne[6]"></PlayerCard>
+            <PlayerCard class="col-3 text-center" :player="gameStore.game.teamOne[7]"></PlayerCard>
+            <PlayerCard class="col-3 text-center" :player="gameStore.game.teamOne[8]"></PlayerCard>
+            <PlayerCard class="col-3 text-center" :player="gameStore.game.teamOne[9]"></PlayerCard>
+            <PlayerCard class="col-12 text-center" :player="gameStore.game.teamOne[10]"></PlayerCard>
           </div>
 
         </div>

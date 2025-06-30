@@ -121,6 +121,7 @@ export const useGameStore = defineStore('gameStore', () => {
             );
         //console.log("players", players);
 
+        /*
         players.forEach(player => {
             if (game.value.teamOne.length === game.value.teamTwo.length) {
                 game.value.teamOne.push(player);
@@ -128,6 +129,33 @@ export const useGameStore = defineStore('gameStore', () => {
                 game.value.teamTwo.push(player);
             }
         });
+        */
+        let direction = 1; // 1 para adelante, -1 para atrás
+        let index = 0; // índice en el array
+        let round = 0;
+
+        while (index < players.length) {
+            if (round % 2 === 0) {
+                // Ronda hacia adelante
+                if (index % 2 === 0) {
+                    game.value.teamOne.push(players[index]);
+                } else {
+                    game.value.teamTwo.push(players[index]);
+                }
+            } else {
+                // Ronda hacia atrás
+                if (index % 2 === 0) {
+                    game.value.teamTwo.push(players[index]);
+                } else {
+                    game.value.teamOne.push(players[index]);
+                }
+            }
+
+            index++;
+            if (index % 2 === 0 && index !== 0) {
+                round++;
+            }
+        }
         //console.log("game.value.teamOne", game.value.teamOne);
         //console.log("game.value.teamTwo", game.value.teamTwo);
 
