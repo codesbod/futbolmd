@@ -85,6 +85,7 @@ const messages = {
         message: {
           menu: {
             home: 'Home',
+            team: 'Team',
             surveys: 'Surveys',
             games: 'Games',
             player: 'Player',
@@ -117,6 +118,7 @@ const messages = {
             firstName: 'Name',
             lastName: 'LastName',
             average: 'Average',
+            change: 'Change',
             playersTeamOne: 'Players Team One',
             playersTeamTwo: 'Players Team Two',
             goalTeamOne: 'Goals Team One',
@@ -138,6 +140,8 @@ const messages = {
             enterName: 'Enter Name',
             nameRequired: 'First name required',
             qualification: 'Qualification',
+            note: 'Note',
+            mid: 'Mid',
             codeTeam: 'Code Team',
             enterCodeTeam: 'Enter code team',
             passwordCodeTeam: 'Code team required',
