@@ -9,6 +9,7 @@ teamStore.getTeamPlayers();
 <template>
   <div class="team">
     <div class="col-md-12">
+      <h1 class="col-md-12">{{ $t('message.menu.team') }}</h1>
         <table class="table table-striped table-sm">
           <thead  class="small">
           <tr>
