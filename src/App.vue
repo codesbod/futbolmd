@@ -3,9 +3,9 @@ import {RouterLink, RouterView} from 'vue-router'
 
 import {useUserStore} from '@/stores/user';
 
-import { useI18n } from 'vue-i18n';
+import {useI18n} from 'vue-i18n';
 
-const { t, locale } = useI18n();
+const {t, locale} = useI18n();
 
 const changeLocale = (lang) => {
   locale.value = lang;
@@ -18,42 +18,65 @@ const userStore = useUserStore();
   <header>
     <img alt="strategy" class="logo" src="@/assets/strategy.svg" width="125" height="125"/>
     <div class="wrapper">
-      <div class="d-flex justify-content-end w-100">
-        <div class="btn-group  btn-group-sm" role="group">
-          <button @click="changeLocale('en')" type="button" class="btn btn-primary">EN</button>
-          <button @click="changeLocale('es')" type="button" class="btn btn-primary">ES</button>
-        </div>
-      </div>
-
-
-
-
       <div class="row text-center">
         <h1 class="col-md-12">Amateur F&uacute;tbol Metrics</h1>
         <div class="col-md-12">
-          <div class="btn-group" role="group" v-show="!userStore.loadingUser">
-            <RouterLink v-show="userStore.userData" class="btn btn-primary btn-sm" to="/">
-              <span class="bi bi-house" ></span>
-              <span class="d-none d-sm-inline">&nbsp;{{ $t('message.menu.home') }}</span></RouterLink>
-            <RouterLink v-show="userStore.userData" class="btn btn-primary btn-sm" to="/team">{{ $t('message.menu.team') }}</RouterLink>
-            <RouterLink v-show="userStore.userData" class="btn btn-primary btn-sm" to="/surveys">{{ $t('message.menu.surveys') }}</RouterLink>
-            <RouterLink v-show="userStore.userData" class="btn btn-primary btn-sm" to="/games">{{ $t('message.menu.games') }}</RouterLink>
-            <RouterLink v-show="userStore.userData" class="btn btn-primary btn-sm" to="/player">{{ $t('message.menu.player') }}</RouterLink>
-            <RouterLink v-show="!userStore.userData" class="btn btn-primary btn-sm" to="/login">{{ $t('message.menu.login') }}</RouterLink>
-            <RouterLink v-show="!userStore.userData" class="btn btn-primary btn-sm" to="/newPlayer"> {{ $t('message.menu.newPlayer') }}</RouterLink>
-            <button v-show="userStore.userData" class="btn btn-primary btn-sm" type="button" @click="userStore.logoutUser()"
-                    :disabled="userStore.loadingAction">
-              <span class="spinner-border spinner-border-sm" v-show="userStore.loadingAction"></span>
-              <span class="bi bi-box-arrow-left" v-show="!userStore.loadingAction"></span>
-              <span class="d-none d-sm-inline">&nbsp;{{ $t('message.menu.logout') }}</span>
-            </button>
-          </div>
-          <div v-show="userStore.loadingUser">
-            <button class="btn btn-primary btn-sm" type="button" disabled>
-              <span class="spinner-border spinner-border-sm"></span>
-              loading...
-            </button>
-          </div>
+          <nav class="navbar bg-body-tertiary">
+            <div class="container-fluid">
+              <div class="btn-group  btn-group-sm" role="group">
+                <button @click="changeLocale('en')" type="button" class="btn btn-primary">EN</button>
+                <button @click="changeLocale('es')" type="button" class="btn btn-primary">ES</button>
+              </div>
+              <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
+                      aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar"
+                   aria-labelledby="offcanvasNavbarLabel">
+                <div class="offcanvas-header">
+                  <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Amateur F&uacute;tbol Metrics</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body">
+                  <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                    <li class="nav-item">
+                      <RouterLink v-show="userStore.userData" class="nav-link" to="/">
+                        <span class="bi bi-house"></span>
+                        <span class="d-none d-sm-inline">&nbsp;{{ $t('message.menu.home') }}</span>
+                      </RouterLink>
+                    </li>
+                    <li class="nav-item">
+                      <RouterLink v-show="userStore.userData" class="nav-link" to="/team">{{ $t('message.menu.team') }}</RouterLink>
+                    </li>
+                    <li class="nav-item">
+                      <RouterLink v-show="userStore.userData" class="nav-link" to="/surveys">{{ $t('message.menu.surveys') }}</RouterLink>
+                    </li>
+                    <li class="nav-item">
+                      <RouterLink v-show="userStore.userData" class="nav-link" to="/games">{{$t('message.menu.games')}}</RouterLink>
+                    </li>
+                    <li class="nav-item">
+                      <RouterLink v-show="userStore.userData" class="nav-link" to="/player">{{$t('message.menu.player')}}</RouterLink>
+                    </li>
+                    <li class="nav-item">
+                      <RouterLink v-show="!userStore.userData" class="nav-link" to="/login">{{$t('message.menu.login')}}</RouterLink>
+                    </li>
+                    <li class="nav-item">
+                      <RouterLink v-show="!userStore.userData" class="nav-link" to="/newPlayer">{{ $t('message.menu.newPlayer') }}</RouterLink>
+                    </li>
+                    <li class="nav-item">
+                      <button v-show="userStore.userData" class="nav-link btn btn-link" type="button"
+                              @click="userStore.logoutUser()"
+                              :disabled="userStore.loadingAction">
+                        <span class="spinner-border spinner-border-sm" v-show="userStore.loadingAction"></span>
+                        <span class="bi bi-box-arrow-left" v-show="!userStore.loadingAction"></span>
+                        <span class="d-none d-sm-inline">&nbsp;{{ $t('message.menu.logout') }}</span>
+                      </button>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </nav>
         </div>
       </div>
     </div>
