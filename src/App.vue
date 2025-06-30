@@ -32,7 +32,10 @@ const userStore = useUserStore();
         <h1 class="col-md-12">Amateur F&uacute;tbol Metrics</h1>
         <div class="col-md-12">
           <div class="btn-group" role="group" v-show="!userStore.loadingUser">
-            <RouterLink v-show="userStore.userData" class="btn btn-primary btn-sm" to="/">{{ $t('message.menu.home') }}</RouterLink>
+            <RouterLink v-show="userStore.userData" class="btn btn-primary btn-sm" to="/">
+              <span class="bi bi-house" ></span>
+              <span class="d-none d-sm-inline">&nbsp;{{ $t('message.menu.home') }}</span></RouterLink>
+            <RouterLink v-show="userStore.userData" class="btn btn-primary btn-sm" to="/team">{{ $t('message.menu.team') }}</RouterLink>
             <RouterLink v-show="userStore.userData" class="btn btn-primary btn-sm" to="/surveys">{{ $t('message.menu.surveys') }}</RouterLink>
             <RouterLink v-show="userStore.userData" class="btn btn-primary btn-sm" to="/games">{{ $t('message.menu.games') }}</RouterLink>
             <RouterLink v-show="userStore.userData" class="btn btn-primary btn-sm" to="/player">{{ $t('message.menu.player') }}</RouterLink>
@@ -42,7 +45,7 @@ const userStore = useUserStore();
                     :disabled="userStore.loadingAction">
               <span class="spinner-border spinner-border-sm" v-show="userStore.loadingAction"></span>
               <span class="bi bi-box-arrow-left" v-show="!userStore.loadingAction"></span>
-              {{ $t('message.menu.logout') }}
+              <span class="d-none d-sm-inline">&nbsp;{{ $t('message.menu.logout') }}</span>
             </button>
           </div>
           <div v-show="userStore.loadingUser">

@@ -8,6 +8,7 @@ const messages = {
         message: {
           menu: {
             home: 'Inicio',
+            team: 'Equipo',
             surveys: 'Encuestas',
             games: 'Partidos',
             player: 'Jugador',
@@ -38,8 +39,10 @@ const messages = {
             addPlayer: 'Agregar jugador',
             number: 'No.',
             firstName: 'Nombre',
+            team: 'Equipo',
             lastName: 'Apellido',
             average: 'Promedio',
+            change: 'Cambio',
             playersTeamOne: 'Jugadores equipo A',
             playersTeamTwo: 'Jugadores equipo B',
             goalTeamOne: 'Goles equipo A',
@@ -61,6 +64,8 @@ const messages = {
             enterName: 'Ingrese nombre',
             nameRequired: 'Nombre requirido',
             qualification: 'Calificación',
+            note: 'Nota',
+            mid: 'Media',
             codeTeam: 'Código del equipo',
             enterCodeTeam: 'Ingrese el código del equipo',
             passwordCodeTeam: 'Código del equipo requerido',
@@ -136,7 +141,6 @@ const messages = {
             codeTeam: 'Code Team',
             enterCodeTeam: 'Enter code team',
             passwordCodeTeam: 'Code team required',
-
           },
           btn: {
             login: 'login',
