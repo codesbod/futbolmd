@@ -64,6 +64,8 @@ const messages = {
             enterName: 'Ingrese nombre',
             nameRequired: 'Nombre requirido',
             qualification: 'Calificación',
+            note: 'Nota',
+            mid: 'Media',
             codeTeam: 'Código del equipo',
             enterCodeTeam: 'Ingrese el código del equipo',
             passwordCodeTeam: 'Código del equipo requerido',
@@ -139,7 +141,6 @@ const messages = {
             codeTeam: 'Code Team',
             enterCodeTeam: 'Enter code team',
             passwordCodeTeam: 'Code team required',
-
           },
           btn: {
             login: 'login',
