@@ -29,7 +29,7 @@ init();
     <div class="row w-100">
       <h1 class="col-md-12">{{ $t('message.label.detailGame') }}</h1>
       <div class="col-md-12">
-        <table class="table table-striped table-sm">
+        <table class="table table-striped table-sm w-100">
           <thead>
           <tr>
             <th class="text-center">{{ $t('message.label.place') }}</th>
