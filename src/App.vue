@@ -64,7 +64,7 @@ const userStore = useUserStore();
                       <RouterLink v-show="!userStore.userData" class="nav-link" to="/newPlayer">{{ $t('message.menu.newPlayer') }}</RouterLink>
                     </li>
                     <li class="nav-item">
-                      <button v-show="userStore.userData" class="nav-link btn btn-link" type="button"
+                      <button v-show="userStore.userData" class="nav-link m-auto" type="button"
                               @click="userStore.logoutUser()"
                               :disabled="userStore.loadingAction">
                         <span class="spinner-border spinner-border-sm" v-show="userStore.loadingAction"></span>
