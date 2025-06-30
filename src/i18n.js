@@ -8,6 +8,7 @@ const messages = {
         message: {
           menu: {
             home: 'Inicio',
+            team: 'Equipo',
             surveys: 'Encuestas',
             games: 'Partidos',
             player: 'Jugador',
@@ -38,8 +39,10 @@ const messages = {
             addPlayer: 'Agregar jugador',
             number: 'No.',
             firstName: 'Nombre',
+            team: 'Equipo',
             lastName: 'Apellido',
             average: 'Promedio',
+            change: 'Cambio',
             playersTeamOne: 'Jugadores equipo A',
             playersTeamTwo: 'Jugadores equipo B',
             goalTeamOne: 'Goles equipo A',
