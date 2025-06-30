@@ -42,7 +42,7 @@ const userStore = useUserStore();
                     <li class="nav-item">
                       <RouterLink v-show="userStore.userData" class="nav-link" to="/">
                         <span class="bi bi-house"></span>
-                        <span class="d-none d-sm-inline">&nbsp;{{ $t('message.menu.home') }}</span>
+                        {{ $t('message.menu.home') }}
                       </RouterLink>
                     </li>
                     <li class="nav-item">
@@ -69,7 +69,7 @@ const userStore = useUserStore();
                               :disabled="userStore.loadingAction">
                         <span class="spinner-border spinner-border-sm" v-show="userStore.loadingAction"></span>
                         <span class="bi bi-box-arrow-left" v-show="!userStore.loadingAction"></span>
-                        <span class="d-none d-sm-inline">&nbsp;{{ $t('message.menu.logout') }}</span>
+                        {{ $t('message.menu.logout') }}
                       </button>
                     </li>
                   </ul>
