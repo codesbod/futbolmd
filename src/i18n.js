@@ -16,6 +16,7 @@ const messages = {
             logout: 'Salir'
           },
           label:{
+            totalPoints: 'Total puntos',
             email: 'Correo',
             enterEmail: 'Ingrese un correo',
             password: 'Contraseña',
@@ -87,6 +88,7 @@ const messages = {
             logout: 'Logout'
           },
           label:{
+            totalPoints: 'Total points',
             email: 'Email',
             enterEmail: 'Enter email',
             password: 'Password',

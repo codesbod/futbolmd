@@ -2,16 +2,31 @@
 import {useGameStore} from '@/stores/game';
 import dayjs from "dayjs";
 import PlayerCard from "@/components/PlayerCard.vue";
+import {ref} from "vue";
 
 const gameStore = useGameStore();
 
 const formatDate = (date) => {
   return dayjs(date).format("DD/MM/YYYY HH:mm");
 }
+
+const pointsTeamOne = ref(0);
+const pointsTeamTwo = ref(0);
+
+const init = () => {
+  gameStore.game.teamOne.forEach(team => {
+    pointsTeamOne.value += Number(team.average);
+  });
+  gameStore.game.teamTwo.forEach(team => {
+    pointsTeamTwo.value += Number(team.average);
+  });
+}
+init();
+
 </script>
 <template>
   <div class="detailGame">
-    <div class="row g-3 w-100">
+    <div class="row w-100">
       <h1 class="col-md-12">{{ $t('message.label.detailGame') }}</h1>
       <div class="col-md-12">
         <table class="table table-striped table-sm">
@@ -34,6 +49,9 @@ const formatDate = (date) => {
       <div class="col-md-12 text-center fs-1">
         <span class="text-orange">{{ gameStore.game.goalsTeamOne }}</span> - <span
           class="text-chartreuse">{{ gameStore.game.goalsTeamTwo }}</span>
+      </div>
+      <div class="col-md-12 text-center">
+        <div class="text-white text-center bg-orange pointsWidth p-2 m-auto "> {{ $t('message.label.totalPoints') }} {{pointsTeamOne}}</div>
       </div>
       <div class="col-md-12" v-if="gameStore.game.type?.code === 'F5'">
         <div class="cancha p-2 text-white text-lowercase m-auto">
@@ -59,7 +77,6 @@ const formatDate = (date) => {
 
       <div class="col-md-12" v-if="gameStore.game.type?.code === 'F7'">
         <div class="cancha p-2 text-white text-lowercase m-auto">
-
           <div class="row team text-orange">
             <PlayerCard class="col-12 text-center" :player="gameStore.game.teamOne[7]"></PlayerCard>
             <PlayerCard class="col-6 text-center" :player="gameStore.game.teamOne[6]"></PlayerCard>
@@ -87,7 +104,6 @@ const formatDate = (date) => {
 
       <div class="col-md-12" v-if="gameStore.game.type?.code === 'F11'">
         <div class="cancha p-2 text-white text-lowercase m-auto">
-
           <div class="row team text-orange">
             <PlayerCard class="col-12 text-center" :player="gameStore.game.teamOne[10]"></PlayerCard>
             <PlayerCard class="col-3 text-center" :player="gameStore.game.teamOne[9]"></PlayerCard>
@@ -118,6 +134,9 @@ const formatDate = (date) => {
 
         </div>
       </div>
+      <div class="col-md-12 text-center">
+        <div class="text-white text-center bg-chartreuse p-2 pointsWidth m-auto">   {{ $t('message.label.totalPoints') }} {{pointsTeamTwo}}</div>
+      </div>
     </div>
   </div>
 </template>
@@ -132,7 +151,7 @@ const formatDate = (date) => {
 }
 
 .cancha {
-  height: 460px;
+  height: 450px;
   width: 300px;
   background-image: url('@/assets/cancha.jpg');
   background-size: contain; /* Ajusta la imagen sin recortarla */
@@ -142,6 +161,18 @@ const formatDate = (date) => {
 .team {
   height: 220px;
   width: 300px;
+}
+
+.pointsWidth{
+  width: 300px;
+}
+
+.bg-chartreuse {
+  background: chartreuse;
+}
+
+.bg-orange {
+  background: orange;
 }
 
 .text-chartreuse {
