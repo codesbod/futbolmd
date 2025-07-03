@@ -39,28 +39,28 @@ const userStore = useUserStore();
                 </div>
                 <div class="offcanvas-body">
                   <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-                    <li class="nav-item">
+                    <li class="nav-item" data-bs-dismiss="offcanvas">
                       <RouterLink v-show="userStore.userData" class="nav-link" to="/">
                         <span class="bi bi-house"></span>
                         {{ $t('message.menu.home') }}
                       </RouterLink>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" data-bs-dismiss="offcanvas">
                       <RouterLink v-show="userStore.userData" class="nav-link" to="/team">{{ $t('message.menu.team') }}</RouterLink>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" data-bs-dismiss="offcanvas">
                       <RouterLink v-show="userStore.userData" class="nav-link" to="/surveys">{{ $t('message.menu.surveys') }}</RouterLink>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" data-bs-dismiss="offcanvas">
                       <RouterLink v-show="userStore.userData" class="nav-link" to="/games">{{$t('message.menu.games')}}</RouterLink>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" data-bs-dismiss="offcanvas">
                       <RouterLink v-show="userStore.userData" class="nav-link" to="/player">{{$t('message.menu.player')}}</RouterLink>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" data-bs-dismiss="offcanvas">
                       <RouterLink v-show="!userStore.userData" class="nav-link" to="/login">{{$t('message.menu.login')}}</RouterLink>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" data-bs-dismiss="offcanvas">
                       <RouterLink v-show="!userStore.userData" class="nav-link" to="/newPlayer">{{ $t('message.menu.newPlayer') }}</RouterLink>
                     </li>
                     <li class="nav-item">
