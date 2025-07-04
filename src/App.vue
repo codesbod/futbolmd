@@ -46,7 +46,7 @@ const userStore = useUserStore();
                       </RouterLink>
                     </li>
                     <li class="nav-item" data-bs-dismiss="offcanvas">
-                      <RouterLink v-show="userStore.userData" class="nav-link" to="/team">{{ $t('message.menu.team') }}</RouterLink>
+                      <RouterLink v-show="userStore.userData" class="nav-link" to="/team">{{ $t('message.menu.teamPlayers') }}</RouterLink>
                     </li>
                     <li class="nav-item" data-bs-dismiss="offcanvas">
                       <RouterLink v-show="userStore.userData" class="nav-link" to="/surveys">{{ $t('message.menu.surveys') }}</RouterLink>

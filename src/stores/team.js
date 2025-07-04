@@ -2,7 +2,7 @@ import {defineStore} from "pinia";
 import {ref} from "vue";
 import {db} from "@/components/firebaseConfig.js";
 import {collection, query, where, doc, getDocs, setDoc} from "firebase/firestore/lite";
-import { useStatisticStore } from "./statistic";
+import {useStatisticStore} from "./statistic";
 
 export const useTeamStore = defineStore('teamStore', () => {
 
@@ -24,7 +24,12 @@ export const useTeamStore = defineStore('teamStore', () => {
                 data.averagePlus = statisticStore.averagePlus(data);
                 players.value.push(data);
             });
-            players.value.sort((a, b) => b.genuineAverage - a.genuineAverage);
+            players.value.sort((a, b) => {
+                if (b.genuineAverage !== a.genuineAverage) {
+                    return b.genuineAverage - a.genuineAverage; // Primero genuineAverage descendente
+                }
+                return b.averagePlus - a.averagePlus; // Luego averagePlus descendente
+            });
         } catch (error) {
             const errorCode = error.code;
             const errorMessage = error.message;
@@ -33,8 +38,7 @@ export const useTeamStore = defineStore('teamStore', () => {
             loadingTeam.value = false;
         }
     }
-    
-  
+
 
     return {
         loadingTeam,

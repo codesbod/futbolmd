@@ -9,7 +9,7 @@ teamStore.getTeamPlayers();
 <template>
   <div class="team">
     <div class="col-md-12">
-      <h1 class="col-md-12">{{ $t('message.menu.team') }}</h1>
+      <h1 class="col-md-12">{{ $t('message.menu.teamPlayers') }}</h1>
         <table class="table table-striped table-sm">
           <thead  class="small">
           <tr>
@@ -22,11 +22,14 @@ teamStore.getTeamPlayers();
           </thead>
           <tbody>
           <tr v-for="(player, index) in teamStore.players" :key="player.id">
-            <td class="text-center">{{ index + 1 }}</td>
+            <td class="text-end">{{ index + 1 }}</td>
             <td class="text-capitalize small">{{ player.firstName }} {{ player.lastName }}</td>
-            <td class="text-center">{{ player.genuineAverage }}</td>
-            <td class="text-center">{{ player.averagePlus }}</td>
-            <td class="text-center">{{ player.statistic.average }}</td>
+            <td class="text-end" :class="player.averagePlus >= 0 ? 'text-success' : 'text-danger'">{{ player.genuineAverage }}</td>
+            <td class="text-end" :class="player.averagePlus >= 0 ? 'text-success' : 'text-danger'">
+              {{player.averagePlus}}
+              <i class="bi " :class="player.averagePlus >= 0 ? 'bi-chevron-double-up' : 'bi-chevron-double-down'"></i>
+            </td>
+            <td class="text-end" :class="player.averagePlus >= 0 ? 'text-success' : 'text-danger'">{{ player.statistic.average }}</td>
           </tr>
           </tbody>
         </table>

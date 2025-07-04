@@ -8,7 +8,7 @@ const messages = {
         message: {
           menu: {
             home: 'Inicio',
-            team: 'Equipo',
+            teamPlayers: 'Jugadores del Equipo',
             surveys: 'Encuestas',
             games: 'Partidos',
             player: 'Jugador',
@@ -85,7 +85,7 @@ const messages = {
         message: {
           menu: {
             home: 'Home',
-            team: 'Team',
+            teamPlayers: 'Team Players',
             surveys: 'Surveys',
             games: 'Games',
             player: 'Player',
