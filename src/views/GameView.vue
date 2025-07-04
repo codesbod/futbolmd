@@ -2,7 +2,7 @@
 import {useGameStore} from '@/stores/game';
 import {usePlayerStore} from '@/stores/player';
 import {useStatisticStore} from '@/stores/statistic';
-import {ref, computed} from "vue";
+import {ref, computed, onMounted} from "vue";
 import dayjs from "dayjs";
 import {v4 as uuidv4} from "uuid";
 
@@ -89,35 +89,22 @@ const removePlayerGame = (objPlayer) => {
   gameStore.game.players = gameStore.game.players.filter(player => player.id !== objPlayer?.id);
 };
 
+function firestoreTimestampToLocalInput(timestamp) {
+  const date = new Date(timestamp.seconds * 1000);
+  const pad = n => n.toString().padStart(2, '0');
+  const year = date.getFullYear();
+  const month = pad(date.getMonth() + 1);
+  const day = pad(date.getDate());
+  const hours = pad(date.getHours());
+  const minutes = pad(date.getMinutes());
+  return `${year}-${month}-${day}T${hours}:${minutes}`;
+}
 
-
-const formattedDateTime = computed({
-
-  get() {
-    const dateTimeValue = gameStore.game.dateTime;
-
-    if (dateTimeValue) {
-      if (typeof dateTimeValue.seconds === 'number') {
-         return dayjs.unix(dateTimeValue.seconds).format("YYYY-MM-DDTHH:mm");
-      }
-      return dayjs(dateTimeValue).format("YYYY-MM-DDTHH:mm");
-    }
-    return '';
-  },
-
-  set(newValue) {
-    if (newValue) {
-      const newDayJsDate = dayjs(newValue);
-      gameStore.game.dateTime = newDayJsDate.toDate();
-    } else {
-      gameStore.game.dateTime = null; 
-    }
-  },
+onMounted(() => {
+  if (gameStore.game.dateTime?.seconds) {
+    gameStore.game.dateTime = firestoreTimestampToLocalInput(gameStore.game.dateTime);
+  }
 });
-
-
-
-
 
 </script>
 <template>
@@ -133,8 +120,9 @@ const formattedDateTime = computed({
         </div>
       </div>
       <div class="col-md-6">
+        {{gameStore.game.dateTime}}
         <label for="dateTime" class="form-label">{{ $t('message.label.datetime') }}</label>
-        <input type="datetime-local" class="form-control" id="dateTime" v-model="formattedDateTime"
+        <input type="datetime-local" class="form-control" id="dateTime" v-model="gameStore.game.dateTime"
                :placeholder="$t('message.label.enterDate')" required>
         <div class="invalid-feedback">
           {{ $t('message.label.dateRequired') }}
