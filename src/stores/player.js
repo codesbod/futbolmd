@@ -161,6 +161,7 @@ export const usePlayerStore = defineStore('playerStore', () => {
             .flatMap(posicion => posicion.positions?.filter(subPosicion => subPosicion.value === true))
             .reverse()
             .slice(0, 3);
+        return positions.value;
     }
 
     const resetStore = () => {
