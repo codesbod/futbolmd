@@ -19,7 +19,7 @@ const userStore = useUserStore();
     <img alt="strategy" class="logo" src="@/assets/strategy.svg" width="125" height="125"/>
     <div class="wrapper">
       <div class="row text-center">
-        <h1 class="col-md-12">Amateur F&uacute;tbol Metrics</h1>
+        <h1 class="col-md-12">Amateur F&uacute;tbol Analytics</h1>
         <div class="col-md-12">
           <nav class="navbar bg-body-tertiary">
             <div class="container-fluid">
@@ -34,7 +34,7 @@ const userStore = useUserStore();
               <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar"
                    aria-labelledby="offcanvasNavbarLabel">
                 <div class="offcanvas-header">
-                  <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Amateur F&uacute;tbol Metrics</h5>
+                  <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Amateur F&uacute;tbol Analytics</h5>
                   <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                 </div>
                 <div class="offcanvas-body">
