@@ -177,7 +177,7 @@ export const useGameStore = defineStore('gameStore', () => {
         //console.log("game.value.teamTwo", game.value.teamTwo);
 
         playersInvitados.forEach(invitados => {
-            if (game.value.teamOne.length === game.value.teamTwo.length) {
+            if (game.value.teamOne.length <= game.value.teamTwo.length) {
                 game.value.teamOne.push(invitados);
             } else {
                 game.value.teamTwo.push(invitados);

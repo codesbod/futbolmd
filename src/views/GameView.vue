@@ -25,7 +25,7 @@ const invitado = ref({
   id: null,
   firstName: 'Invitado',
   lastName: 'Invitado',
-  average: 99,
+  average: 10,
   positions: [
     {
       code: "PORTERO", name: "Portero",
