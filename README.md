@@ -16,6 +16,29 @@ See [Vite Configuration Reference](https://vite.dev/config/).
 npm install
 ```
 
+### Before you start, create firebaseConfig.js in /src/components
+
+```sh
+import {initializeApp} from "firebase/app";
+import {getAuth} from "firebase/auth";
+import {getFirestore} from "firebase/firestore/lite"
+
+const firebaseConfig = {
+    apiKey: "",
+    authDomain: "",
+    projectId: "",
+    storageBucket: "",
+    messagingSenderId: "",
+    appId: ""
+};
+
+initializeApp(firebaseConfig);
+const auth = getAuth();
+const db = getFirestore();
+
+export {auth, db};
+```
+
 ### Compile and Hot-Reload for Development
 
 ```sh
