@@ -1,7 +1,7 @@
 import {defineStore} from "pinia";
 import {ref} from "vue";
 import {db} from "@/components/firebaseConfig.js";
-import {collection, query, where, doc, getDocs, setDoc} from "firebase/firestore/lite";
+import {collection, query, where, doc, getDocs, setDoc} from "firebase/firestore";
 import {useStatisticStore} from "./statistic";
 import {usePlayerStore} from "@/stores/player.js";
 

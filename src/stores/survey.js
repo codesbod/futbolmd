@@ -2,7 +2,7 @@ import {defineStore} from "pinia";
 import {useRouter} from "vue-router";
 import {ref} from "vue";
 import {auth, db} from "@/components/firebaseConfig.js";
-import {addDoc, collection, query, where, doc, getDocs, setDoc} from "firebase/firestore/lite";
+import {addDoc, collection, query, where, doc, getDocs, setDoc} from "firebase/firestore";
 
 
 export const useSurveyStore = defineStore('surveyStore', () => {

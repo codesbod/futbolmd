@@ -1,6 +1,6 @@
 import {defineStore} from 'pinia'
 import {ref} from "vue";
-import {collection, getDocs, getDoc, setDoc, doc} from "firebase/firestore/lite";
+import {collection, getDocs, getDoc, setDoc, doc} from "firebase/firestore";
 import {auth, db} from "@/components/firebaseConfig";
 import {useRouter} from "vue-router";
 
