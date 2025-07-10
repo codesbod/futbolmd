@@ -29,4 +29,3 @@ coverage
 
 *.tsbuildinfo
 *firebaseConfig.js*
-*firebaseConfigEnd.js*

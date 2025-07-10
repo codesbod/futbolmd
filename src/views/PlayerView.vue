@@ -3,7 +3,6 @@
 import {usePlayerStore} from '@/stores/player'
 
 const playerStore = usePlayerStore();
-
 playerStore.getPlayer();
 
 const save = () => {

@@ -16,6 +16,7 @@ export const useUserStore = defineStore('userStore', () => {
 
     const userData = ref();
     const isAdmin = ref(false);
+    const isDeveloper = ref(false);
 
     const trueCodeTeam = "u3P96dFpFn7w";
 
@@ -46,6 +47,7 @@ export const useUserStore = defineStore('userStore', () => {
             const {user} = await signInWithEmailAndPassword(auth, email, password);
             userData.value = user;
             validationIsAdmin();
+            validationIsDeveloper();
             await router.push('/');
         } catch (error) {
             const errorCode = error.code;
@@ -93,7 +95,12 @@ export const useUserStore = defineStore('userStore', () => {
     }
 
     const validationIsAdmin = () => {
-        isAdmin.value = userData.value.uid === "8yxnSvcLPthVc3b3XRCOSaXZr0h1";
+        isAdmin.value = userData.value.uid === "8yxnSvcLPthVc3b3XRCOSaXZr0h1"
+            || userData.value.uid === "WQ5WZyiDWWPd5Yl9zuKR79tIwDS2";
+    }
+
+    const validationIsDeveloper = () => {
+        isDeveloper.value = userData.value.uid === "8yxnSvcLPthVc3b3XRCOSaXZr0h1";
     }
 
     const resetAllStore = () => {
@@ -105,6 +112,6 @@ export const useUserStore = defineStore('userStore', () => {
         surveyStore.resetStore();
     }
 
-    return {loadingAction, loadingUser, userData, isAdmin, createUser, loginUser, logoutUser, currentUser, validationIsAdmin}
+    return {loadingAction, loadingUser, userData, isAdmin, isDeveloper, createUser, loginUser, logoutUser, currentUser, validationIsAdmin}
 
 })

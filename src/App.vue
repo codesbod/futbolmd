@@ -3,7 +3,6 @@ import {RouterLink, RouterView} from 'vue-router'
 
 import {useUserStore} from '@/stores/user';
 
-import {copyDBtoDB} from "@/components/developer/copyDBToDB.js";
 import {useI18n} from 'vue-i18n';
 
 const {t, locale} = useI18n();
@@ -65,9 +64,7 @@ const userStore = useUserStore();
                       <RouterLink v-show="!userStore.userData" class="nav-link" to="/newPlayer">{{ $t('message.menu.newPlayer') }}</RouterLink>
                     </li>
                     <li class="nav-item" data-bs-dismiss="offcanvas">
-                      <button v-if="userStore.isAdmin" class="nav-link m-auto" type="button" @click="copyDBtoDB()">
-                        Migrete DB to DB
-                      </button>
+                      <RouterLink v-show="userStore.isDeveloper" class="nav-link text-danger" to="/migrateDataBase">Migrate Data Base</RouterLink>
                     </li>
                     <li class="nav-item">
                       <button v-show="userStore.userData" class="nav-link m-auto" type="button"

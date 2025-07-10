@@ -10,6 +10,7 @@ import TeamView from "@/views/TeamView.vue";
 import DetailGameView from "@/views/DetailGameView.vue";
 import SurveysView from "@/views/SurveysView.vue";
 import SendSurveyView from "@/views/SendSurveyView.vue";
+import MigrateDataBaseView from "@/components/developer/MigrateDataBaseView.vue";
 
 const requiresAuth = async (to, from, next) => {
     const userStore = useUserStore();
@@ -33,6 +34,7 @@ const routes = [
     {path: '/surveys', component: SurveysView, beforeEnter: requiresAuth},
     {path: '/team', component: TeamView, beforeEnter: requiresAuth},
     {path: '/sendSurvey', component: SendSurveyView, beforeEnter: requiresAuth},
+    {path: '/migrateDataBase', component: MigrateDataBaseView, beforeEnter: requiresAuth},
     {path: '/newPlayer', component: NewPlayerView},
     {path: '/login', component: LoginView},
 ]
