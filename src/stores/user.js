@@ -23,7 +23,7 @@ export const useUserStore = defineStore('userStore', () => {
     const createUser = async (email, password, codeTeam) => {
         loadingAction.value = true;
         try {
-            if(codeTeam !== trueCodeTeam){
+            if (codeTeam !== trueCodeTeam) {
                 alert("The team code does not exist");
                 return;
             }
@@ -100,7 +100,10 @@ export const useUserStore = defineStore('userStore', () => {
     }
 
     const validationIsDeveloper = () => {
-        isDeveloper.value = userData.value.uid === "8yxnSvcLPthVc3b3XRCOSaXZr0h1";
+        isDeveloper.value = userData.value.uid === "8yxnSvcLPthVc3b3XRCOSaXZr0h1"
+            || userData.value.uid === "l8EhYEykKNVVPuXSOe6TFUO5Fb53"
+            || userData.value.uid === "0vNE3QwnZka4Syy5UJ9pgzGgIk33"
+            || userData.value.uid === "xrdazWPoLQTFJchd8TBK5YksgK83";
     }
 
     const resetAllStore = () => {
@@ -112,6 +115,17 @@ export const useUserStore = defineStore('userStore', () => {
         surveyStore.resetStore();
     }
 
-    return {loadingAction, loadingUser, userData, isAdmin, isDeveloper, createUser, loginUser, logoutUser, currentUser, validationIsAdmin}
+    return {
+        loadingAction,
+        loadingUser,
+        userData,
+        isAdmin,
+        isDeveloper,
+        createUser,
+        loginUser,
+        logoutUser,
+        currentUser,
+        validationIsAdmin
+    }
 
 })
