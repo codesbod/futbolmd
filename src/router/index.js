@@ -18,6 +18,7 @@ const requiresAuth = async (to, from, next) => {
     const user = await userStore.currentUser();
     if (user) {
         userStore.validationIsAdmin();
+        userStore.validationIsDeveloper();
         next();
     } else {
         next('/login');

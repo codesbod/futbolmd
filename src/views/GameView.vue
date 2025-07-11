@@ -2,10 +2,8 @@
 import {useGameStore} from '@/stores/game';
 import {usePlayerStore} from '@/stores/player';
 import {useStatisticStore} from '@/stores/statistic';
-import {ref, computed, onMounted} from "vue";
-import dayjs from "dayjs";
+import {onMounted, ref} from "vue";
 import {v4 as uuidv4} from "uuid";
-
 
 const statisticStore = useStatisticStore();
 const gameStore = useGameStore();
@@ -74,7 +72,7 @@ const addPlayerGame = () => {
     invitado.value.id = uuidv4();
   }
 
-  const isPortero = selectPlayer.value.positions.find(p => p.code === 'PORTERO') ?.positions.some(sub => sub.value === true);
+  const isPortero = selectPlayer.value.positions.find(p => p.code === 'PORTERO')?.positions.some(sub => sub.value === true);
   gameStore.game.players.push({
     id: selectPlayer.value.id,
     firstName: selectPlayer.value.firstName,
@@ -120,7 +118,7 @@ onMounted(() => {
         </div>
       </div>
       <div class="col-md-6">
-        {{gameStore.game.dateTime}}
+        {{ gameStore.game.dateTime }}
         <label for="dateTime" class="form-label">{{ $t('message.label.datetime') }}</label>
         <input type="datetime-local" class="form-control" id="dateTime" v-model="gameStore.game.dateTime"
                :placeholder="$t('message.label.enterDate')" required>
@@ -221,7 +219,13 @@ onMounted(() => {
         </div>
       </div>
       <div class="col-12 border-top text-center pt-2">
-
+        <button class="btn btn-primary me-1" type="submit" :disabled="gameStore.loadingGame">
+          <span class="spinner-border spinner-border-sm" v-show="gameStore.loadingGame"></span>
+          <span class="bi bi-floppy" v-show="!gameStore.loadingGame"></span>
+          {{ $t('message.btn.save') }}
+        </button>
+      </div>
+      <div class="col-12 border-top text-center pt-2">
         <button class="btn btn-outline-secondary me-1" type="button"
                 @click="statisticStore.calculateStatistic(gameStore.game)">
           <i class="bi bi-dice-5"></i>
@@ -234,13 +238,8 @@ onMounted(() => {
           <span class="bi bi-shuffle" v-show="!gameStore.loadingGame"></span>
           {{ $t('message.btn.distributeTeams') }}
         </button>
-
-        <button class="btn btn-primary me-1" type="submit" :disabled="gameStore.loadingGame">
-          <span class="spinner-border spinner-border-sm" v-show="gameStore.loadingGame"></span>
-          <span class="bi bi-floppy" v-show="!gameStore.loadingGame"></span>
-          {{ $t('message.btn.save') }}
-        </button>
       </div>
+
     </form>
   </div>
 </template>

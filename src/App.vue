@@ -64,7 +64,7 @@ const userStore = useUserStore();
                       <RouterLink v-show="!userStore.userData" class="nav-link" to="/newPlayer">{{ $t('message.menu.newPlayer') }}</RouterLink>
                     </li>
                     <li class="nav-item" data-bs-dismiss="offcanvas">
-                      <RouterLink v-show="userStore.isDeveloper" class="nav-link text-danger" to="/migrateDataBase">Migrate Data Base</RouterLink>
+                      <RouterLink v-if="userStore.isDeveloper" class="nav-link text-danger" to="/migrateDataBase">Migrate Data Base</RouterLink>
                     </li>
                     <li class="nav-item">
                       <button v-show="userStore.userData" class="nav-link m-auto" type="button"

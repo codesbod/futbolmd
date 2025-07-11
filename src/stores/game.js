@@ -90,7 +90,6 @@ export const useGameStore = defineStore('gameStore', () => {
                 game.value.id = docRef.id;
                 await setDoc(doc(db, "game", game.value.id), game.value);
             }
-            await router.push('/games');
         } catch (error) {
             const errorCode = error.code;
             const errorMessage = error.message;
@@ -108,29 +107,16 @@ export const useGameStore = defineStore('gameStore', () => {
         const playersIsPortero = game.value.players
             .filter(player => player.isPortero)
             .slice(0, 2);
-        //console.log("playersIsPortero", playersIsPortero);
 
         const playersInvitados = game.value.players
             .filter(player => player.firstName === 'Invitado');
-        //console.log("playersInvitados", playersInvitados);
 
         const players = game.value.players
             .filter(player =>
                 !playersIsPortero.some(p => p.id === player.id) &&
                 !playersInvitados.some(p => p.id === player.id)
             );
-        //console.log("players", players);
 
-        /*
-        players.forEach(player => {
-            if (game.value.teamOne.length === game.value.teamTwo.length) {
-                game.value.teamOne.push(player);
-            } else {
-                game.value.teamTwo.push(player);
-            }
-        });
-        */
-        let direction = 1; // 1 para adelante, -1 para atrás
         let index = 0; // índice en el array
         let round = 0;
 
@@ -156,8 +142,6 @@ export const useGameStore = defineStore('gameStore', () => {
                 round++;
             }
         }
-        //console.log("game.value.teamOne", game.value.teamOne);
-        //console.log("game.value.teamTwo", game.value.teamTwo);
 
         if (playersIsPortero.length === 1) {
             console.log("playersIsPortero.length === 1");
@@ -173,8 +157,6 @@ export const useGameStore = defineStore('gameStore', () => {
             game.value.teamOne.push(playersIsPortero[0]);
             game.value.teamTwo.push(playersIsPortero[1]);
         }
-        //console.log("game.value.teamOne", game.value.teamOne);
-        //console.log("game.value.teamTwo", game.value.teamTwo);
 
         playersInvitados.forEach(invitados => {
             if (game.value.teamOne.length <= game.value.teamTwo.length) {
@@ -183,8 +165,6 @@ export const useGameStore = defineStore('gameStore', () => {
                 game.value.teamTwo.push(invitados);
             }
         });
-        //console.log("game.value.teamOne", game.value.teamOne);
-        //console.log("game.value.teamTwo", game.value.teamTwo);
     }
 
     const actionNewGame = async () => {

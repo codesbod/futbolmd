@@ -132,6 +132,7 @@ export const usePlayerStore = defineStore('playerStore', () => {
             player.value.id = uid;
             player.value.user = uid;
 
+            getAverage(player.value);
             await setDoc(doc(db, "player", uid), player.value);
             await router.push('/');
         } catch (error) {

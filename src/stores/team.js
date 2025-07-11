@@ -43,10 +43,15 @@ export const useTeamStore = defineStore('teamStore', () => {
         }
     }
 
+    const resetStore = () => {
+        players.value = [];
+    };
+
     return {
         loadingTeam,
         getTeamPlayers,
         players,
+        resetStore,
     }
 
 });

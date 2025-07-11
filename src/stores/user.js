@@ -6,6 +6,7 @@ import {useRouter} from "vue-router";
 import {usePlayerStore} from "@/stores/player.js";
 import {useGameStore} from "@/stores/game.js";
 import {useSurveyStore} from "@/stores/survey.js";
+import {useTeamStore} from "@/stores/team.js";
 
 export const useUserStore = defineStore('userStore', () => {
 
@@ -66,7 +67,11 @@ export const useUserStore = defineStore('userStore', () => {
             resetAllStore();
 
             await signOut(auth);
+
             userData.value = null;
+            isAdmin.value = false;
+            isDeveloper.value = false;
+
             await router.push('/login');
         } catch (error) {
             const errorCode = error.code;
@@ -95,15 +100,15 @@ export const useUserStore = defineStore('userStore', () => {
     }
 
     const validationIsAdmin = () => {
-        isAdmin.value = userData.value.uid === "8yxnSvcLPthVc3b3XRCOSaXZr0h1"
-            || userData.value.uid === "WQ5WZyiDWWPd5Yl9zuKR79tIwDS2";
+        isAdmin.value = userData.value?.uid === "8yxnSvcLPthVc3b3XRCOSaXZr0h1"
+            || userData.value?.uid === "WQ5WZyiDWWPd5Yl9zuKR79tIwDS2";
     }
 
     const validationIsDeveloper = () => {
-        isDeveloper.value = userData.value.uid === "8yxnSvcLPthVc3b3XRCOSaXZr0h1"
-            || userData.value.uid === "l8EhYEykKNVVPuXSOe6TFUO5Fb53"
-            || userData.value.uid === "0vNE3QwnZka4Syy5UJ9pgzGgIk33"
-            || userData.value.uid === "xrdazWPoLQTFJchd8TBK5YksgK83";
+        isDeveloper.value = userData.value?.uid === "8yxnSvcLPthVc3b3XRCOSaXZr0h1"
+            || userData.value?.uid === "l8EhYEykKNVVPuXSOe6TFUO5Fb53"
+            || userData.value?.uid === "0vNE3QwnZka4Syy5UJ9pgzGgIk33"
+            || userData.value?.uid === "xrdazWPoLQTFJchd8TBK5YksgK83";
     }
 
     const resetAllStore = () => {
@@ -113,6 +118,8 @@ export const useUserStore = defineStore('userStore', () => {
         gameStore.resetStore();
         const surveyStore = useSurveyStore();
         surveyStore.resetStore();
+        const teamStore = useTeamStore();
+        teamStore.resetStore();
     }
 
     return {
@@ -125,7 +132,8 @@ export const useUserStore = defineStore('userStore', () => {
         loginUser,
         logoutUser,
         currentUser,
-        validationIsAdmin
+        validationIsAdmin,
+        validationIsDeveloper
     }
 
 })
