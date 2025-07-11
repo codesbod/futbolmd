@@ -1,6 +1,7 @@
 <script setup>
 import {ref} from "vue";
 import {useUserStore} from '@/stores/user';
+import {RouterLink} from "vue-router";
 
 const userStore = useUserStore();
 
@@ -49,8 +50,11 @@ const newPlayer = () => {
         <button class="btn btn-primary" type="submit" :disabled="userStore.loadingAction">
           <span class="spinner-border spinner-border-sm" v-show="userStore.loadingAction"></span>
           <span class="bi bi-person-plus" v-show="!userStore.loadingAction"></span>
-          {{ $t('message.btn.newPlayer') }}
+          {{ $t('message.btn.signUp') }}
         </button>
+      </div>
+      <div class="text-center mb-2">
+        <RouterLink class="link-primary" to="/login">{{ $t('message.label.goToSingIn') }}</RouterLink>
       </div>
     </form>
   </div>

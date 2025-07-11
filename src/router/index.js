@@ -11,6 +11,7 @@ import DetailGameView from "@/views/DetailGameView.vue";
 import SurveysView from "@/views/SurveysView.vue";
 import SendSurveyView from "@/views/SendSurveyView.vue";
 import MigrateDataBaseView from "@/components/developer/MigrateDataBaseView.vue";
+import RecoverPasswordView from "@/views/RecoverPasswordView.vue";
 
 const requiresAuth = async (to, from, next) => {
     const userStore = useUserStore();
@@ -38,6 +39,7 @@ const routes = [
     {path: '/migrateDataBase', component: MigrateDataBaseView, beforeEnter: requiresAuth},
     {path: '/newPlayer', component: NewPlayerView},
     {path: '/login', component: LoginView},
+    {path: '/recoverPassword', component: RecoverPasswordView},
 ]
 
 const router = createRouter({

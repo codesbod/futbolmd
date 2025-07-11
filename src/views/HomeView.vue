@@ -3,9 +3,11 @@ import {usePlayerStore} from "@/stores/player";
 import {useStatisticStore} from "@/stores/statistic";
 import {ref} from "vue";
 import PlayerDetail from "@/components/PlayerDetail.vue";
+import {useUserStore} from "@/stores/user.js";
 
 const statisticStore = useStatisticStore();
 const playerStore = usePlayerStore();
+const userStore = useUserStore();
 
 const genuineAverage = ref(0);
 const averagePlus = ref(0);

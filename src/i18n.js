@@ -14,9 +14,12 @@ const messages = {
             player: 'Jugador',
             login: 'Ingresar',
             newPlayer: 'Nuevo jugador',
-            logout: 'Salir'
+            logout: 'Salir',
+            recoverPassword: 'Recuperar contraseña',
           },
           label:{
+            forgotPassword: '¿Has olvidado la contraseña?',
+            goToSingIn: 'Ir a iniciar sesión',
             totalPoints: 'Total puntos',
             email: 'Correo',
             enterEmail: 'Ingrese un correo',
@@ -70,9 +73,13 @@ const messages = {
             enterCodeTeam: 'Ingrese el código del equipo',
             passwordCodeTeam: 'Código del equipo requerido',
           },
+          text: {
+            recoverPassword: 'Con el fin de proteger su información, le solicitamos que proporcione un correo electrónico válido. En caso de verificación exitosa, se enviará un enlace seguro para la recuperación de su contraseña.',
+          },
           btn: {
-            login: 'Ingresar',
+            login: 'Iniciar sesión',
             newPlayer: 'Nuevo jugador',
+            signUp: 'Registrarte',
             save: 'Guardar',
             send: 'Enviar',
             newGame: 'Nuevo partido',
@@ -89,11 +96,14 @@ const messages = {
             surveys: 'Surveys',
             games: 'Games',
             player: 'Player',
-            login: 'login',
+            login: 'Log in',
             newPlayer: 'New player',
-            logout: 'Logout'
+            logout: 'Logout',
+            recoverPassword: 'Recover Password',
           },
           label:{
+            forgotPassword: 'Forgot password?',
+            goToSingIn: 'Go to sing in',
             totalPoints: 'Total points',
             email: 'Email',
             enterEmail: 'Enter email',
@@ -146,9 +156,13 @@ const messages = {
             enterCodeTeam: 'Enter code team',
             passwordCodeTeam: 'Code team required',
           },
+          message: {
+            recoverPassword: 'To protect your information, we request that you provide a valid email address. If verification is successful, a secure link will be sent for password recovery.',
+          },
           btn: {
-            login: 'login',
+            login: 'Log in',
             newPlayer: 'New player',
+            signUp: 'Sign Up',
             newGame: 'New Game',
             save: 'Save',
             send: 'Send',

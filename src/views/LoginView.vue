@@ -2,6 +2,7 @@
 
 import {ref} from "vue";
 import {useUserStore} from "@/stores/user";
+import {RouterLink} from "vue-router";
 
 const userStore = useUserStore();
 
@@ -43,6 +44,14 @@ const loginPlayer = () => {
           <span class="bi bi-box-arrow-in-right" v-show="!userStore.loadingAction"></span>
           {{ $t('message.btn.login') }}
         </button>
+        &nbsp;
+        <RouterLink class="btn btn-secondary" to="/newPlayer">
+          <i class="bi bi-person-plus"></i>
+          {{ $t('message.menu.newPlayer') }}
+        </RouterLink>
+      </div>
+      <div class="col-12 text-center pt-2">
+        <RouterLink class="link-primary" to="/recoverPassword">{{ $t('message.label.forgotPassword') }}</RouterLink>
       </div>
     </form>
   </div>

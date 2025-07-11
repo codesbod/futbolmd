@@ -1,5 +1,12 @@
 import {defineStore} from 'pinia'
-import {createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut} from "firebase/auth";
+import {
+    createUserWithEmailAndPassword,
+    onAuthStateChanged,
+    signInWithEmailAndPassword,
+    signOut,
+    verifyBeforeUpdateEmail,
+    sendPasswordResetEmail
+} from "firebase/auth";
 import {auth} from "@/components/firebaseConfig.js";
 import {ref} from "vue";
 import {useRouter} from "vue-router";
@@ -99,6 +106,24 @@ export const useUserStore = defineStore('userStore', () => {
         });
     }
 
+    const changeEmail = async () => {
+        try {
+            await verifyBeforeUpdateEmail(userData.value, "lsuarezalfaro@gmail.com");
+            alert("Se ha enviado un correo de verificación al nuevo email.");
+        } catch (error) {
+            console.error("Error al enviar verificación:", error.message);
+        }
+    };
+
+    const recoverPassword = async (email) => {
+        try {
+            await sendPasswordResetEmail(auth, email)
+            alert("Correo de recuperación enviado. Revisa tu bandeja de entrada.");
+        } catch (error) {
+            console.error("Error al enviar el correo:", error.message);
+        }
+    };
+
     const validationIsAdmin = () => {
         isAdmin.value = userData.value?.uid === "8yxnSvcLPthVc3b3XRCOSaXZr0h1"
             || userData.value?.uid === "WQ5WZyiDWWPd5Yl9zuKR79tIwDS2";
@@ -133,7 +158,9 @@ export const useUserStore = defineStore('userStore', () => {
         logoutUser,
         currentUser,
         validationIsAdmin,
-        validationIsDeveloper
+        validationIsDeveloper,
+        changeEmail,
+        recoverPassword,
     }
 
 })
