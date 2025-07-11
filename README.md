@@ -16,6 +16,9 @@ See [Vite Configuration Reference](https://vite.dev/config/).
 npm install
 ```
 
+## Important
+### To execute the project it is necessary to create a project in firebase [Firebase console](https://console.firebase.google.com/), this provides the data of the firebaseConfig file that is needed to be able to execute it since it manages the DB and the authentication.
+
 ### Before you start, create firebaseConfig.js in /src/components
 
 ```sh
@@ -51,6 +54,12 @@ npm run dev
 npm run build
 ```
 
+### Deploy command in firebase once the account is configured
+
+```sh
+firebase deploy
+```
+
 ### Migrate data to data base, create firebaseConfigEnd.js in /src/components/developer
 
 ```sh
@@ -74,3 +83,12 @@ const db = getFirestore(app);
 
 export {auth, db};
 ```
+
+
+# Notes:
+
+## Project Documentation
+
+- [Changelog](CHANGELOG.md) his file contains a chronological history of the changes
+- [To-do](TODO.md) his file lists to-dos, ideas for improvements.
+- [Known Errors](KNOWN_ISSUES.md) This file documents errors or undesired behaviour.
