@@ -49,13 +49,13 @@ const userStore = useUserStore();
                       <RouterLink v-show="userStore.userData" class="nav-link" to="/team">{{ $t('message.menu.teamPlayers') }}</RouterLink>
                     </li>
                     <li class="nav-item" data-bs-dismiss="offcanvas">
-                      <RouterLink v-show="userStore.userData" class="nav-link" to="/surveys">{{ $t('message.menu.surveys') }}</RouterLink>
+                      <RouterLink v-show="userStore.userData" class="nav-link" to="/player">{{$t('message.menu.player')}}</RouterLink>
                     </li>
                     <li class="nav-item" data-bs-dismiss="offcanvas">
                       <RouterLink v-show="userStore.userData" class="nav-link" to="/games">{{$t('message.menu.games')}}</RouterLink>
                     </li>
                     <li class="nav-item" data-bs-dismiss="offcanvas">
-                      <RouterLink v-show="userStore.userData" class="nav-link" to="/player">{{$t('message.menu.player')}}</RouterLink>
+                      <RouterLink v-show="userStore.userData" class="nav-link" to="/surveys">{{ $t('message.menu.surveys') }}</RouterLink>
                     </li>
                     <li class="nav-item" data-bs-dismiss="offcanvas">
                       <RouterLink v-show="!userStore.userData" class="nav-link" to="/login">{{$t('message.menu.login')}}</RouterLink>
