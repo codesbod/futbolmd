@@ -16,6 +16,7 @@ const messages = {
             newPlayer: 'Nuevo jugador',
             logout: 'Salir',
             recoverPassword: 'Recuperar contraseña',
+            mostValuablePlayer: "Votar jugador más valioso (MVP)",
           },
           label:{
             forgotPassword: '¿Has olvidado la contraseña?',
@@ -100,6 +101,7 @@ const messages = {
             newPlayer: 'New player',
             logout: 'Logout',
             recoverPassword: 'Recover Password',
+            mostValuablePlayer: "Vote Most Valuable Player (MVP)",
           },
           label:{
             forgotPassword: 'Forgot password?',

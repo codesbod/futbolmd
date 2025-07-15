@@ -60,31 +60,6 @@ npm run build
 firebase deploy
 ```
 
-### Migrate data to data base, create firebaseConfigEnd.js in /src/components/developer
-
-```sh
-import {initializeApp} from "firebase/app";
-import {getFirestore} from "firebase/firestore"
-import {getAuth} from "firebase/auth";
-
-const firebaseConfig = {
-    apiKey: "",
-    authDomain: "",
-    databaseURL: "",
-    projectId: "",
-    storageBucket: "",
-    messagingSenderId: "",
-    appId: ""
-};
-
-const app = initializeApp(firebaseConfig, "destine");
-const auth = getAuth(app);
-const db = getFirestore(app);
-
-export {auth, db};
-```
-
-
 # Notes:
 
 ## Project Documentation
