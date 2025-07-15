@@ -9,6 +9,6 @@ Una vez corregidos se pueden quitar.
 
 ## Errores actuales
 
-- Error en el componente MigrateDatabase que al refrescar se desaparece, y para que vuelva aparecer se debe cerrar sesion y volver a ingresar
+- Campo fecha partido al guardar o editar.
 
 
