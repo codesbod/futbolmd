@@ -10,7 +10,7 @@ defineOptions({inheritAttrs: false})
 </script>
 
 <template>
-  <div v-bind="$attrs" class="text-center">
+  <div v-bind="$attrs">
     <div class="icono-con-texto">
       <i class="bi bi-shield-fill"></i>
       <span class="texto-superpuesto fw-bold">{{ player?.average }}</span>

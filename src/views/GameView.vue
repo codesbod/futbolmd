@@ -11,10 +11,13 @@ const playerStore = usePlayerStore();
 playerStore.getPlayers();
 
 const save = () => {
-  if (gameStore.game.players.length < gameStore.game.type.min
-      || gameStore.game.players.length > gameStore.game.type.max) {
-    alert(`The number of players in ${gameStore.game.type.name} is outside the allowed range: minimum ${gameStore.game.type.min} and maximum ${gameStore.game.type.max}.`);
-    return;
+  console.log(gameStore.game.vs);
+  if(!gameStore.game.vs) {
+    if (gameStore.game.players.length < gameStore.game.type.min
+        || gameStore.game.players.length > gameStore.game.type.max) {
+      alert(`The number of players in ${gameStore.game.type.name} is outside the allowed range: minimum ${gameStore.game.type.min} and maximum ${gameStore.game.type.max}.`);
+      return;
+    }
   }
   gameStore.addGame();
 }
@@ -126,7 +129,7 @@ onMounted(() => {
           {{ $t('message.label.dateRequired') }}
         </div>
       </div>
-      <div class="col-md-6">
+      <div class="col-md-4">
         <label for="type" class="form-label">{{ $t('message.label.type') }}</label>
         <select class="form-select" id="type" v-model="gameStore.game.type" required>
           <option v-for="type in gameStore.types" :key="type.code" :value="type">{{ type.name }} ({{ type.code }})
@@ -135,6 +138,11 @@ onMounted(() => {
         <div class="invalid-feedback">
           {{ $t('message.label.typeRequired') }}
         </div>
+      </div>
+      <div class="col-md-2">
+        <label for="vs" class="form-label">{{ $t('message.label.vs') }}</label>
+        <br/>
+        <input type="checkbox" class="form-check-input" v-model="gameStore.game.vs" id="vs">
       </div>
       <div class="col-md-12">
         <label class="form-label">{{ $t('message.label.addPlayer') }}</label>
@@ -226,17 +234,17 @@ onMounted(() => {
         </button>
       </div>
       <div class="col-12 border-top text-center pt-2">
-        <button class="btn btn-outline-secondary me-1" type="button"
-                @click="statisticStore.calculateStatistic(gameStore.game)">
-          <i class="bi bi-dice-5"></i>
-          {{ $t('message.btn.calculateStatistic') }}
-        </button>
-
-        <button class="btn btn-outline-secondary me-1" type="button" :disabled="gameStore.loadingGame"
+        <button v-if="!gameStore.game.vs"  class="btn btn-outline-secondary me-1" type="button" :disabled="gameStore.loadingGame"
                 @click="gameStore.divideTeams()">
           <span class="spinner-border spinner-border-sm" v-show="gameStore.loadingGame"></span>
           <span class="bi bi-shuffle" v-show="!gameStore.loadingGame"></span>
           {{ $t('message.btn.distributeTeams') }}
+        </button>
+
+        <button class="btn btn-outline-secondary me-1" type="button"
+                @click="statisticStore.calculateStatistic(gameStore.game)">
+          <i class="bi bi-dice-5"></i>
+          {{ $t('message.btn.calculateStatistic') }}
         </button>
       </div>
 

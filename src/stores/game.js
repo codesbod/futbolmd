@@ -4,6 +4,7 @@ import {addDoc, collection, query, where, doc, getDocs, setDoc, orderBy} from "f
 import {auth, db} from "@/components/firebaseConfig";
 import {useRouter} from "vue-router";
 import {useUserStore} from "@/stores/user.js";
+import {v4 as uuidv4} from "uuid";
 
 export const useGameStore = defineStore('gameStore', () => {
 
@@ -17,6 +18,7 @@ export const useGameStore = defineStore('gameStore', () => {
         place: null,
         dateTime: null,
         type: null,
+        vs: false,
         players: [],
         teamOne: [],
         teamTwo: [],
@@ -83,6 +85,7 @@ export const useGameStore = defineStore('gameStore', () => {
         loadingGame.value = true;
         try {
             game.value.dateTime = new Date(game.value.dateTime);
+            if(game.value.vs){divideTeamsVs();}
             if (game.value.id !== null) {
                 await setDoc(doc(db, "game", game.value.id), game.value);
             } else {
@@ -98,6 +101,38 @@ export const useGameStore = defineStore('gameStore', () => {
             loadingGame.value = false;
         }
     }
+
+    const divideTeamsVs = () => {
+        const { players, type } = game.value;
+
+        players.sort((a, b) => b.average - a.average);
+        game.value.teamOne = [...players];
+
+        const playerCountMap = {
+            F5: 6,
+            F7: 8,
+            F11: 11,
+        };
+        const nPlayers = playerCountMap[type.code] || 0;
+        console.log("nPlayers", nPlayers);
+
+        const invitadoVs = {
+            firstName: "Invitado",
+            lastName: "Invitado",
+            average: 10,
+            isPortero: false,
+        };
+        console.log("invitadoVs", invitadoVs);
+
+        game.value.teamTwo = Array.from({ length: nPlayers }, () => ({
+            id: uuidv4(),
+            ...invitadoVs,
+        }));
+
+        console.log("gameTeamOne",game.value.teamOne);
+        console.log("gameTeamTwo",game.value.teamTwo);
+
+    };
 
     const divideTeams = () => {
         game.value.players.sort((a, b) => b.average - a.average);
@@ -144,7 +179,6 @@ export const useGameStore = defineStore('gameStore', () => {
         }
 
         if (playersIsPortero.length === 1) {
-            console.log("playersIsPortero.length === 1");
             if (game.value.teamOne.length < game.value.teamTwo.length) {
                 game.value.teamOne.push(playersIsPortero[0]);
             } else {
@@ -153,7 +187,6 @@ export const useGameStore = defineStore('gameStore', () => {
         }
 
         if (playersIsPortero.length === 2) {
-            console.log("playersIsPortero.length === 2");
             game.value.teamOne.push(playersIsPortero[0]);
             game.value.teamTwo.push(playersIsPortero[1]);
         }
@@ -196,6 +229,7 @@ export const useGameStore = defineStore('gameStore', () => {
         getGames,
         addGame,
         divideTeams,
+        divideTeamsVs,
         actionNewGame,
         actionUpdateGame,
         actionViewGame,

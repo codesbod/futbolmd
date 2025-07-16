@@ -27,7 +27,7 @@ const userStore = useUserStore();
                 <button @click="changeLocale('en')" type="button" class="btn btn-primary">EN</button>
                 <button @click="changeLocale('es')" type="button" class="btn btn-primary">ES</button>
               </div>
-              <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
+              <button v-if="userStore.userData" class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
                       aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
               </button>
@@ -56,12 +56,6 @@ const userStore = useUserStore();
                     </li>
                     <li class="nav-item" data-bs-dismiss="offcanvas">
                       <RouterLink v-show="userStore.userData" class="nav-link" to="/surveys">{{ $t('message.menu.surveys') }}</RouterLink>
-                    </li>
-                    <li class="nav-item" data-bs-dismiss="offcanvas">
-                      <RouterLink v-show="!userStore.userData" class="nav-link" to="/login">{{$t('message.menu.login')}}</RouterLink>
-                    </li>
-                    <li class="nav-item" data-bs-dismiss="offcanvas">
-                      <RouterLink v-show="!userStore.userData" class="nav-link" to="/newPlayer">{{ $t('message.menu.newPlayer') }}</RouterLink>
                     </li>
                     <li class="nav-item" data-bs-dismiss="offcanvas">
                       <RouterLink v-if="userStore.isDeveloper" class="nav-link text-danger" to="/migrateDataBase">Migrate Data Base</RouterLink>

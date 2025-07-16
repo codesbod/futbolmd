@@ -2,7 +2,7 @@
 import {useGameStore} from '@/stores/game';
 import dayjs from "dayjs";
 import PlayerCard from "@/components/PlayerCard.vue";
-import {ref} from "vue";
+import {onMounted, ref} from "vue";
 
 const gameStore = useGameStore();
 
@@ -12,16 +12,35 @@ const formatDate = (date) => {
 
 const pointsTeamOne = ref(0);
 const pointsTeamTwo = ref(0);
+const substitutes = ref([]);
 
-const init = () => {
+onMounted(() => {
   gameStore.game.teamOne.forEach(team => {
     pointsTeamOne.value += Number(team.average);
   });
   gameStore.game.teamTwo.forEach(team => {
     pointsTeamTwo.value += Number(team.average);
   });
-}
-init();
+
+  console.log(gameStore.game.type);
+  if(gameStore.game?.vs) {
+    const playerCountMap = {
+      F5: 6,
+      F7: 8,
+      F11: 11,
+    };
+    const nPlayers = playerCountMap[gameStore.game.type?.code] || 0;
+    console.log("nPlayers",nPlayers);
+    const teamPlayers = gameStore.game.teamOne || [];
+    console.log("teamPlayers",teamPlayers);
+    const subs = teamPlayers.slice(nPlayers);
+    console.log("subs",subs);
+
+    substitutes.value.push(...subs);
+    console.log("substitutes",substitutes.value);
+  }
+
+})
 
 </script>
 <template>
@@ -51,7 +70,9 @@ init();
           class="text-chartreuse">{{ gameStore.game.goalsTeamTwo }}</span>
       </div>
       <div class="col-md-12 text-center">
-        <div class="text-white text-center bg-orange pointsWidth p-2 m-auto "> {{ $t('message.label.totalPoints') }} {{pointsTeamOne}}</div>
+        <div class="text-white text-center bg-orange pointsWidth p-2 m-auto "> {{ $t('message.label.totalPoints') }}
+          {{ pointsTeamOne }}
+        </div>
       </div>
       <div class="col-md-12" v-if="gameStore.game.type?.code === 'F5'">
         <div class="cancha p-2 text-white text-lowercase m-auto">
@@ -64,13 +85,16 @@ init();
             <PlayerCard class="col-12 text-center" :player="gameStore.game.teamOne[0]"></PlayerCard>
           </div>
 
-          <div class="row team text-chartreuse">
+          <div class="row team text-chartreuse" v-if="!gameStore.game?.vs">
             <PlayerCard class="col-12 text-center" :player="gameStore.game.teamTwo[0]"></PlayerCard>
             <PlayerCard class="col-6 text-center" :player="gameStore.game.teamTwo[1]"></PlayerCard>
             <PlayerCard class="col-6 text-center" :player="gameStore.game.teamTwo[2]"></PlayerCard>
             <PlayerCard class="col-6 text-center" :player="gameStore.game.teamTwo[3]"></PlayerCard>
             <PlayerCard class="col-6 text-center" :player="gameStore.game.teamTwo[4]"></PlayerCard>
             <PlayerCard class="col-12 text-center" :player="gameStore.game.teamTwo[5]"></PlayerCard>
+          </div>
+          <div class="row team text-chartreuse" v-if="gameStore.game?.vs">
+            <h1 class="col-12 text-center">VS</h1>
           </div>
         </div>
       </div>
@@ -88,7 +112,7 @@ init();
             <PlayerCard class="col-6 text-center" :player="gameStore.game.teamOne[0]"></PlayerCard>
           </div>
 
-          <div class="row team text-chartreuse">
+          <div class="row team text-chartreuse" v-if="!gameStore.game?.vs">
             <PlayerCard class="col-6 text-center" :player="gameStore.game.teamTwo[0]"></PlayerCard>
             <PlayerCard class="col-6 text-center" :player="gameStore.game.teamTwo[1]"></PlayerCard>
             <PlayerCard class="col-4 text-center" :player="gameStore.game.teamTwo[2]"></PlayerCard>
@@ -97,6 +121,9 @@ init();
             <PlayerCard class="col-6 text-center" :player="gameStore.game.teamTwo[5]"></PlayerCard>
             <PlayerCard class="col-6 text-center" :player="gameStore.game.teamTwo[6]"></PlayerCard>
             <PlayerCard class="col-12 text-center" :player="gameStore.game.teamTwo[7]"></PlayerCard>
+          </div>
+          <div class="row team text-chartreuse" v-if="gameStore.game?.vs">
+            <h1 class="col-12 text-center m-auto">VS</h1>
           </div>
 
         </div>
@@ -118,7 +145,7 @@ init();
             <PlayerCard class="col-6 text-center" :player="gameStore.game.teamOne[0]"></PlayerCard>
           </div>
 
-          <div class="row team text-chartreuse">
+          <div class="row team text-chartreuse" v-if="!gameStore.game?.vs">
             <PlayerCard class="col-6 text-center" :player="gameStore.game.teamOne[0]"></PlayerCard>
             <PlayerCard class="col-6 text-center" :player="gameStore.game.teamOne[1]"></PlayerCard>
             <PlayerCard class="col-12 text-center" :player="gameStore.game.teamOne[2]"></PlayerCard>
@@ -131,11 +158,26 @@ init();
             <PlayerCard class="col-3 text-center" :player="gameStore.game.teamOne[9]"></PlayerCard>
             <PlayerCard class="col-12 text-center" :player="gameStore.game.teamOne[10]"></PlayerCard>
           </div>
+          <div class="row team text-chartreuse" v-if="gameStore.game?.vs">
+            <h1 class="col-12 text-center">VS</h1>
+          </div>
 
         </div>
       </div>
-      <div class="col-md-12 text-center">
-        <div class="text-white text-center bg-chartreuse p-2 pointsWidth m-auto">   {{ $t('message.label.totalPoints') }} {{pointsTeamTwo}}</div>
+      <div class="col-md-12 text-center" v-if="!gameStore.game?.vs">
+        <div class="text-white text-center bg-chartreuse p-2 pointsWidth m-auto"> {{ $t('message.label.totalPoints') }}
+          {{ pointsTeamTwo }}
+        </div>
+      </div>
+      <div class="col-md-12 text-center" v-if="gameStore.game?.vs">
+        <div class="text-white text-center bg-chartreuse p-2 pointsWidth m-auto"> {{ $t('message.label.totalPoints') }}
+          --
+        </div>
+      </div>
+
+      <div class="col-md-12 mt-3" v-if="gameStore.game?.vs">
+        <h3 class="col-md-12"> {{ $t('message.label.substitutes') }}</h3>
+        <PlayerCard v-for="player in substitutes" :key="player.id" :player="player"></PlayerCard>
       </div>
     </div>
   </div>
@@ -163,7 +205,7 @@ init();
   width: 300px;
 }
 
-.pointsWidth{
+.pointsWidth {
   width: 300px;
 }
 
