@@ -85,7 +85,9 @@ export const useGameStore = defineStore('gameStore', () => {
         loadingGame.value = true;
         try {
             game.value.dateTime = new Date(game.value.dateTime);
-            if(game.value.vs){divideTeamsVs();}
+            if (game.value.vs) {
+                divideTeamsVs();
+            }
             if (game.value.id !== null) {
                 await setDoc(doc(db, "game", game.value.id), game.value);
             } else {
@@ -103,7 +105,7 @@ export const useGameStore = defineStore('gameStore', () => {
     }
 
     const divideTeamsVs = () => {
-        const { players, type } = game.value;
+        const {players, type} = game.value;
 
         players.sort((a, b) => b.average - a.average);
         game.value.teamOne = [...players];
@@ -124,25 +126,26 @@ export const useGameStore = defineStore('gameStore', () => {
         };
         console.log("invitadoVs", invitadoVs);
 
-        game.value.teamTwo = Array.from({ length: nPlayers }, () => ({
+        game.value.teamTwo = Array.from({length: nPlayers}, () => ({
             id: uuidv4(),
             ...invitadoVs,
         }));
 
-        console.log("gameTeamOne",game.value.teamOne);
-        console.log("gameTeamTwo",game.value.teamTwo);
+        console.log("gameTeamOne", game.value.teamOne);
+        console.log("gameTeamTwo", game.value.teamTwo);
 
     };
 
     const divideTeams = () => {
-        game.value.players.sort((a, b) => b.average - a.average);
         game.value.teamOne = [];
         game.value.teamTwo = [];
 
+        game.value.players.sort((a, b) => a.average - b.average);
         const playersIsPortero = game.value.players
             .filter(player => player.isPortero)
             .slice(0, 2);
 
+        game.value.players.sort((a, b) => b.average - a.average);
         const playersInvitados = game.value.players
             .filter(player => player.firstName === 'Invitado');
 
